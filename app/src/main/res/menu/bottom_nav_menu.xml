@@ -8,12 +8,12 @@
 
     <item
         android:id="@+id/navigation_knowledge"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/knowledge"
         android:title="@string/title_knowledge" />
 
     <item
         android:id="@+id/navigation_achievements"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/achievements"
         android:title="@string/title_achievements" />
 
 </menu>
