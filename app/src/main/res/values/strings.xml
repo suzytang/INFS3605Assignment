@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">INFS3605Assignment</string>
+    <string name="title_achievements">Achievements</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_knowledge">Knowledge</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

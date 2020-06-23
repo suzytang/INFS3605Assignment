@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.infs3605assignment.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_knowledge"
+        android:name="com.example.infs3605assignment.ui.knowledge.ModuleRecycler"
+        android:label="@string/title_knowledge"
+        tools:layout="@layout/fragment_module_recycler" />
+
+    <fragment
+        android:id="@+id/navigation_achievements"
+        android:name="com.example.infs3605assignment.ui.achievements.AchievementsFragment"
+        android:label="@string/title_achievements"
+        tools:layout="@layout/fragment_notifications" />
+</navigation>
