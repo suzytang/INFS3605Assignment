@@ -18,6 +18,9 @@ public class MCQ extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
+        int level = getArguments().getInt("Level");
+        View root = inflater.inflate(R.layout.fragment_module_content, container, false);
         // Inflate the layout for this fragment
         // Radio buttons for each question
         // Store user answers
@@ -25,7 +28,7 @@ public class MCQ extends Fragment {
         //// Pass arraylist with MCQInput and categories
         //args.putSerializable("arraylist", answers);
         //intent2.putExtra("bundle", args);
-        return inflater.inflate(R.layout.fragment_m_c_q, container, false);
+        return root;
     }
 
     @Override

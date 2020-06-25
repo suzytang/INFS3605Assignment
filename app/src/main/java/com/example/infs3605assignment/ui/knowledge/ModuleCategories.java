@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ModuleCategories {
     private int level;
     private String categoryName;
+    private int image;
 //    private int image;
 
 //    public ModuleCategories(int level, String categoryName, int image) {
@@ -12,9 +13,10 @@ public class ModuleCategories {
 //        this.categoryName = categoryName;
 //        this.image = image;
 //    }
-    public ModuleCategories(int level, String categoryName) {
+    public ModuleCategories(int level, String categoryName, int image) {
         this.level = level;
         this.categoryName = categoryName;
+        this.image = image;
     }
 
     public int getLevel() {
@@ -33,19 +35,19 @@ public class ModuleCategories {
         this.categoryName = categoryName;
     }
 
-//    public int getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(int image) {
-//        this.image = image;
-//    }
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
 
     public static ArrayList<ModuleCategories> getCategories() {
         ArrayList<ModuleCategories> categories = new ArrayList<>();
-        categories.add(new ModuleCategories(1, "Module 1"));
-        categories.add(new ModuleCategories(2, "Module 2"));
-        categories.add(new ModuleCategories(3, "Module 3"));
+        categories.add(new ModuleCategories(1, "Module 1", 1));
+        categories.add(new ModuleCategories(2, "Module 2", 2));
+        categories.add(new ModuleCategories(3, "Module 3",3));
         return categories;
     }
 }
