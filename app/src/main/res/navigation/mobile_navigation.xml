@@ -21,5 +21,5 @@
         android:id="@+id/navigation_achievements"
         android:name="com.example.infs3605assignment.ui.achievements.AchievementsFragment"
         android:label="@string/title_achievements"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_achievements" />
 </navigation>
