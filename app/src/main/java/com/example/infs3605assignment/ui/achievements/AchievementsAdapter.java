@@ -1,5 +1,6 @@
 package com.example.infs3605assignment.ui.achievements;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infs3605assignment.R;
 
+import java.util.ArrayList;
+
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.MyViewHolder> {
 
-    Achievements achievements = new Achievements();
+    Context mContext;
+    ArrayList<Achievements> achievements;
 
-    public AchievementsAdapter() {
 
+    public AchievementsAdapter(Context context,ArrayList<Achievements> achievements) {
+        this.mContext = context;
+        this.achievements = achievements;
     }
 
     @Override
@@ -27,15 +33,15 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     // Replace contents of the view with data
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.name.setText(achievements.getAchievements().get(position).getName());
-        holder.description.setText(achievements.getAchievements().get(position).getDescription());
-        holder.image.setImageResource(achievements.getAchievements().get(position).getImage());
+        holder.name.setText(achievements.get(position).getName());
+        holder.description.setText(achievements.get(position).getDescription());
+        holder.image.setImageResource(achievements.get(position).getImage());
     }
 
     // Return size of dataset
     @Override
     public int getItemCount() {
-        return achievements.getAchievements().size();
+        return achievements.size();
     }
 
     // Create ViewHolder for achievements_item

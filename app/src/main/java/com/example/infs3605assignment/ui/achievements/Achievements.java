@@ -47,9 +47,10 @@ public class Achievements {
     public static ArrayList<Achievements> getAchievements() {
         ArrayList<Achievements> achievements = new ArrayList<>();
         achievements.add(new Achievements("Champ", "Achieved 100% in 5 quizzes", R.drawable.brain));
-        achievements.add(new Achievements("Cap", "Accessories", R.drawable.brain));
-        achievements.add(new Achievements("Top Hat", "Accessories", R.drawable.brain));
-        achievements.add(new Achievements("Glasses", "Accessories", R.drawable.brain));
+        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
+        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
+        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
+        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
 
         return achievements;
 
