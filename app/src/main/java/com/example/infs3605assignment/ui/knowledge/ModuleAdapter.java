@@ -81,7 +81,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
             public void onClick(View v) {
                 Log.i(TAG, "Quiz Module "+position+1+" Clicked");
                 // Create fragment and give it an argument specifying the article it should show
-                Fragment newFragment = new ModuleContent();
+                Fragment newFragment = new MCQ();
                 Bundle args = new Bundle();
                 args.putInt("Level", position+1);
                 newFragment.setArguments(args);

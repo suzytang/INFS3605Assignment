@@ -20,7 +20,7 @@ public class MCQ extends Fragment {
                              Bundle savedInstanceState) {
         container.removeAllViews();
         int level = getArguments().getInt("Level");
-        View root = inflater.inflate(R.layout.fragment_module_content, container, false);
+        View root = inflater.inflate(R.layout.fragment_m_c_q, container, false);
         // Inflate the layout for this fragment
         // Radio buttons for each question
         // Store user answers
