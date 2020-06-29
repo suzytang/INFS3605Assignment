@@ -10,9 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,39 +51,49 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
             public void onClick(View v) {
                 Log.i(TAG, "Learn Module "+position+1+" Clicked");
                 // Create fragment and give it an argument specifying the article it should show
-                Fragment newFragment = new Fragment();
+                Fragment newFragment = new ModuleContent();
                 Bundle args = new Bundle();
-                args.putInt("Module", position+1);
+                args.putInt("Level", position+1);
                 newFragment.setArguments(args);
 
                 FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
 
                 // Replace whatever is in the fragment_container view with this fragment,
                 // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.recyclerView, newFragment);
+                transaction.replace(R.id.moduleFrag, newFragment);
                 transaction.addToBackStack(null);
 
                 // Commit the transaction
                 transaction.commit();
             }
         });
-//        holder.practice.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, Practice.class);
-//                intent.putExtra("category",categories.get(position).getLevel());
-//                mContext.startActivity(intent);
-//            }
-//        });
-//
-//        holder.quiz.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, QuizTest.class);
-//                intent.putExtra("category", categories.get(position).getLevel());
-//                mContext.startActivity(intent);
-//            }
-//        });
+        holder.activityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        holder.quizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Quiz Module "+position+1+" Clicked");
+                // Create fragment and give it an argument specifying the article it should show
+                Fragment newFragment = new MCQ();
+                Bundle args = new Bundle();
+                args.putInt("Level", position+1);
+                newFragment.setArguments(args);
+
+                FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.moduleFrag, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+            }
+        });
     }
 
     // Return size of dataset
