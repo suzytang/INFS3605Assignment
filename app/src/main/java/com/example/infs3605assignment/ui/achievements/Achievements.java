@@ -9,15 +9,17 @@ public class Achievements {
     private String name;
     private String description;
     private int image;
+    private int progress;
 
     public Achievements(){
 
     }
 
-    public Achievements(String name, String description, int image) {
+    public Achievements(String name, String description, int image, int progress) {
         this.name = name;
         this.description = description;
         this.image = image;
+        this.progress = progress;
     }
 
     public String getName() {
@@ -44,13 +46,22 @@ public class Achievements {
         this.image = image;
     }
 
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
     public static ArrayList<Achievements> getAchievements() {
+
         ArrayList<Achievements> achievements = new ArrayList<>();
-        achievements.add(new Achievements("Champ", "Achieved 100% in 5 quizzes", R.drawable.brain));
-        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
-        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
-        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
-        achievements.add(new Achievements("Test", "Testing", R.drawable.brain));
+        achievements.add(new Achievements("Champ", "Achieve 100% in 3 quizzes", R.drawable.brain, 100));
+        achievements.add(new Achievements("Conqueror", "Conquer 1 module", R.drawable.brain, 25));
+        achievements.add(new Achievements("Test", "Testing", R.drawable.brain, 0));
+        achievements.add(new Achievements("Test", "Testing", R.drawable.brain, 50));
+        achievements.add(new Achievements("Test", "Testing", R.drawable.brain, 74));
 
         return achievements;
 
