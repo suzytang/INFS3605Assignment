@@ -44,9 +44,9 @@
 
     <Button
         android:id="@+id/modulesButton"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?attr/materialButtonOutlinedStyle"
         android:text="modules"
         app:layout_constraintBottom_toBottomOf="@+id/retryButton"
         app:layout_constraintEnd_toStartOf="@+id/resultButton"
@@ -56,9 +56,11 @@
 
     <Button
         android:id="@+id/retryButton"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?attr/materialButtonOutlinedStyle"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         android:text="retry"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/modulesButton"
@@ -68,9 +70,10 @@
 
     <Button
         android:id="@+id/resultButton"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?attr/materialButtonOutlinedStyle"
+        android:layout_marginEnd="8dp"
         android:text="results"
         app:layout_constraintBottom_toBottomOf="@+id/modulesButton"
         app:layout_constraintEnd_toEndOf="parent"

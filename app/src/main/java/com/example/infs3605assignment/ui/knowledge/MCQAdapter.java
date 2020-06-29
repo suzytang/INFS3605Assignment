@@ -1,9 +1,11 @@
 package com.example.infs3605assignment.ui.knowledge;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,80 +15,56 @@ import java.util.ArrayList;
 
 public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.MyViewHolder> {
     private Context context;
-    private ArrayList<MCQInput> answers;
+    private ArrayList<MCQInput> inputList;
 
     // The following code is modified from: INFS3634 Week 4 - Simple RecyclerView Example
 
     // Constructor
-    public MCQAdapter(Context context,ArrayList<MCQInput> answers) {
-        this.answers = answers;
+    public MCQAdapter(Context context,ArrayList<MCQInput> inputList) {
+        this.inputList = inputList;
         this.context = context;
     }
 
     // Inflate learn_levels and return view
     @Override
     public MCQAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.module_cards, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.mcq_cards, parent, false);
         return new MCQAdapter.MyViewHolder(v);
     }
 
     // Replace contents of the view with data
     @Override
     public void onBindViewHolder(MCQAdapter.MyViewHolder holder, final int position) {
-//        holder.levelText.setText(categories.get(position).getCategoryName());
-//        holder.categoryImage.setImageResource(categories.get(position).getImage());
-//
-//        // On click buttons start respective activities and passes on the category
-//        holder.learn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, LearnFlashcards.class);
-//                intent.putExtra("category",categories.get(position).getLevel());
-//                mContext.startActivity(intent);
-//            }
-//        });
-//        holder.practice.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, Practice.class);
-//                intent.putExtra("category",categories.get(position).getLevel());
-//                mContext.startActivity(intent);
-//            }
-//        });
-//
-//        holder.quiz.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, QuizTest.class);
-//                intent.putExtra("category", categories.get(position).getLevel());
-//                mContext.startActivity(intent);
-//            }
-//        });
+        int no = position+1;
+        holder.questionNumber.setText("QUESTION "+no+" OUT OF "+inputList.size());
+        holder.questionText.setText(inputList.get(position).getQuestion());
+        holder.userInput.setText("Your answer: "+inputList.get(position).getUserAnswer());
+        holder.correctAnswer.setText("Correct answer: "+inputList.get(position).getCorrectAnswer());
+        holder.feedbackText.setText(inputList.get(position).getFeedback());
+        if (inputList.get(position).getScore() == 0) {
+            holder.userInput.setTextColor(Color.RED);
+        } else {
+            holder.userInput.setTextColor(Color.GREEN);
+        }
     }
 
     // Return size of dataset
     @Override
     public int getItemCount() {
-        return answers.size();
+        return inputList.size();
     }
 
     // Create ViewHolder for learn_levels
     public class MyViewHolder extends RecyclerView.ViewHolder {
-//        TextView levelText;
-//        Button quiz;
-//        Button learn;
-//        Button practice;
-//        ImageView categoryImage;
-
+        TextView questionNumber, questionText, userInput, correctAnswer, feedbackText;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
-//            this.levelText = itemView.findViewById(R.id.category);
-//            this.quiz = itemView.findViewById(R.id.storeButton);
-//            this.learn = itemView.findViewById(R.id.learn);
-//            this.practice = itemView.findViewById(R.id.practice);
-//            this.categoryImage = itemView.findViewById(R.id.categoryImage);
+            this.questionNumber = itemView.findViewById(R.id.questionNumber);
+            this.questionText = itemView.findViewById(R.id.questionText);
+            this.userInput = itemView.findViewById(R.id.userInput);
+            this.correctAnswer = itemView.findViewById(R.id.correctAnswer);
+            this.feedbackText = itemView.findViewById(R.id.feedbackText);
         }
     }
 }

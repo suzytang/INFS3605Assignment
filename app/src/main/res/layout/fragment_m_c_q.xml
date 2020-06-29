@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mcqFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.knowledge.MCQ">
@@ -64,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/radio_group" />
 
         <TextView
-            android:id="@+id/text_view_question_count"
+            android:id="@+id/questionNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -85,7 +86,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_question_count" />
+            app:layout_constraintTop_toBottomOf="@+id/questionNo" />
 
         <TextView
             android:id="@+id/result"

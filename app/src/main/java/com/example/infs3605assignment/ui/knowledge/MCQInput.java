@@ -42,12 +42,12 @@ public class MCQInput {
         return feedback;
     }
     public void setFeedback(String feedback) {
-        this.question = feedback;
+        this.feedback = feedback;
     }
     public int getScore() {
         return score;
     }
-    public void setScore(int feedback) {
+    public void setScore(int score) {
         this.score = score;
     }
 }

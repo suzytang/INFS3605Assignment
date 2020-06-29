@@ -2,7 +2,6 @@ package com.example.infs3605assignment.ui.knowledge;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infs3605assignment.DatabaseHelper;
+import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class MCQ extends Fragment {
     private static final String TAG = "MCQ";
     private TextView questionText, result, feedback;
@@ -37,7 +40,7 @@ public class MCQ extends Fragment {
     private int questionCounter, level, questionTotal;
     private MCQuestion currentQuestion;
     private boolean answered, last;
-    private List<MCQInput> inputList;
+    private ArrayList<MCQInput> inputList;
     private Dialog dialog;
     private View root;
     DatabaseHelper dbHelper;
@@ -57,7 +60,7 @@ public class MCQ extends Fragment {
         //intent2.putExtra("bundle", args);
         questionText = root.findViewById(R.id.questionText);
 //        textViewScore = root.findViewById(R.id.text_view_score);
-        textViewQuestionCount = root.findViewById(R.id.text_view_question_count);
+        textViewQuestionCount = root.findViewById(R.id.questionNo);
 //        textViewCountDown = root.findViewById(R.id.text_view_countdown);
         rbGroup = root.findViewById(R.id.radio_group);
         rb1 = root.findViewById(R.id.radio_button1);
@@ -86,7 +89,6 @@ public class MCQ extends Fragment {
         Button modulesButton = dialog.findViewById(R.id.modulesButton);
         Button retryButton = dialog.findViewById(R.id.retryButton);
         Button resultButton = dialog.findViewById(R.id.resultButton);
-
 
         // Initalise variables
         int total = 0;
@@ -138,6 +140,21 @@ public class MCQ extends Fragment {
         resultButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "Result Clicked");
+                // Create fragment and give it an argument specifying the article it should show
+                Fragment newFragment = new MCQRecycler();
+                Bundle args = new Bundle();
+                args.putInt("Level", level);
+                args.putSerializable("MCQInput", inputList);
+                newFragment.setArguments(args);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.mcqFrag, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
                 dialog.dismiss();
             }
         });
@@ -204,7 +221,9 @@ public class MCQ extends Fragment {
                     if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked() || rb4.isChecked()) {
                         MCQInput input = new MCQInput();
                         input.setQuestion(currentQuestion.getQuestion());
+                        Log.v(TAG, "input question set: "+currentQuestion.getQuestion());
                         input.setFeedback(currentQuestion.getFeedback());
+                        Log.v(TAG, "input feedback set: "+currentQuestion.getFeedback());
 
                         RadioButton rbSelected = root.findViewById(rbGroup.getCheckedRadioButtonId());
                         int answer = rbGroup.indexOfChild(rbSelected) + 1;

@@ -18,15 +18,17 @@ public class MCQRecycler extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
+    private int level;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         // Inflate view with recycler module fragment
         View root = inflater.inflate(R.layout.fragment_m_c_q_recycler, container, false);
-
+        level = getArguments().getInt("Level");
         // Initialise recyclerView
-        recyclerView = root.findViewById(R.id.recyclerView);
+        recyclerView = root.findViewById(R.id.resultsRecycler);
         recyclerView.setHasFixedSize(true);
 
         // Initialise layoutManager for recyclerView
@@ -35,11 +37,10 @@ public class MCQRecycler extends Fragment {
 
         // Get useranswers - requires put and get bundles from MCQ
         // Bundle args = intent.getBundleExtra("bundle");
-        // ArrayList<MCQInput> answers = (ArrayList<MCQInput>) args.getSerializable("arraylist");
-        ArrayList<MCQInput> answers = new ArrayList<>();
+        ArrayList<MCQInput> inputList = (ArrayList<MCQInput>) getArguments().getSerializable("MCQInput");
 
         // Create adapter object
-        adapter = new MCQAdapter(this.getContext(), answers);
+        adapter = new MCQAdapter(this.getContext(), inputList);
 
         // Attach adapter to recycler
         recyclerView.setAdapter(adapter);

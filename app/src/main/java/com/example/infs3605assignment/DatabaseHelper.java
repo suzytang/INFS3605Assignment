@@ -62,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         addQuestion(new MCQuestion(1, 1, "A is correct", "A", "B", "C", "D", "feedback", 1));
         addQuestion(new MCQuestion(1, 2, "B is correct", "A", "B", "C", "D", "feedback", 2));
         addQuestion(new MCQuestion(1, 3, "C is correct", "A", "B", "C", "D", "feedback", 3));
+        addQuestion(new MCQuestion(1, 4, "D is correct", "A", "B", "C", "D", "feedback", 4));
         addQuestion(new MCQuestion(2, 1, "A is correct", "A", "B", "C", "D", "feedback", 1));
         addQuestion(new MCQuestion(2, 2, "B is correct", "A", "B", "C", "D", "feedback", 2));
         addQuestion(new MCQuestion(3, 1, "C is correct", "A", "B", "C", "D", "feedback", 3));
