@@ -21,28 +21,32 @@
             android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_question">
+            app:layout_constraintTop_toBottomOf="@+id/questionText">
 
             <RadioButton
                 android:id="@+id/radio_button1"
-                android:layout_width="wrap_content"
+                style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Option 1" />
 
             <RadioButton
                 android:id="@+id/radio_button2"
-                android:layout_width="wrap_content"
+                style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Option 2" />
 
             <RadioButton
                 android:id="@+id/radio_button3"
-                android:layout_width="wrap_content"
+                style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Option 3" />
 
             <RadioButton
                 android:id="@+id/radio_button4"
+                style="@android:style/Widget.Material.Light.CompoundButton.RadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Option 4" />
@@ -64,28 +68,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:text="Question: 1/x"
-            android:textColor="@android:color/black"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_view_question"
+            android:id="@+id/questionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/radio_group"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="Here will be the question text\nHere will be the question text\nHere will be the question text"
-            android:textAlignment="center"
-            android:textSize="20sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_question_count" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Correct!"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_confirm_next" />
+
+        <TextView
+            android:id="@+id/feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintStart_toStartOf="@+id/result"
+            app:layout_constraintTop_toBottomOf="@+id/result" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

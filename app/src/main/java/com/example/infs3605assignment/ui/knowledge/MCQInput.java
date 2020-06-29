@@ -1,37 +1,53 @@
 package com.example.infs3605assignment.ui.knowledge;
 
 public class MCQInput {
-    private int question;
-    private  int userAnswer;
-    private int correctAnswer;
+    private String question;
+    private String userAnswer;
+    private String correctAnswer;
+    private String feedback;
+    private int score;
 
-    public MCQInput(int question, int userAnswer, int correctAnswer) {
+    public MCQInput() {
         this.question = question;
         this.userAnswer = userAnswer;
         this.correctAnswer = correctAnswer;
+        this.feedback = feedback;
+        this.score = score;
     }
 
-    public int getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(int question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
-    public int getUserAnswer() {
+    public String getUserAnswer() {
         return userAnswer;
     }
 
-    public void setUserAnswer(int userAnswer) {
+    public void setUserAnswer(String userAnswer) {
         this.userAnswer = userAnswer;
     }
 
-    public int getCorrectAnswer() {
+    public String getCorrectAnswer() {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(int correctAnswer) {
+    public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
+    }
+    public String getFeedback() {
+        return feedback;
+    }
+    public void setFeedback(String feedback) {
+        this.question = feedback;
+    }
+    public int getScore() {
+        return score;
+    }
+    public void setScore(int feedback) {
+        this.score = score;
     }
 }
