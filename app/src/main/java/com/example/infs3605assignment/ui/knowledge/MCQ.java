@@ -132,6 +132,18 @@ public class MCQ extends Fragment {
         modulesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "Module Recycler Clicked");
+                // Create fragment and give it an argument specifying the article it should show
+                Fragment newFragment = new ModuleRecycler();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.mcqFrag, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
                 dialog.dismiss();
             }
         });

@@ -23,7 +23,7 @@ public class ModuleRecycler extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        container.removeAllViews();
         // Inflate view with recycler module fragment
         View root = inflater.inflate(R.layout.fragment_module_recycler, container, false);
 

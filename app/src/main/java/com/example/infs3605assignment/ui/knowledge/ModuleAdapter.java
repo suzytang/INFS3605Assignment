@@ -67,15 +67,12 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
                 transaction.commit();
             }
         });
-//        holder.practice.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, Practice.class);
-//                intent.putExtra("category",categories.get(position).getLevel());
-//                mContext.startActivity(intent);
-//            }
-//        });
-//
+        holder.activityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         holder.quizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
