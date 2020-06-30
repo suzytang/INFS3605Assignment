@@ -72,11 +72,18 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
             public void onClick(View v) {
                 Log.i(TAG, "Activity Module "+position+1+" Clicked");
                 // Create fragment and give it an argument specifying the article it should show
-                Fragment newFragment = new Password();
+
                 Bundle args = new Bundle();
                 args.putInt("Level", position+1);
+                Fragment newFragment;
+                switch (position + 1) {
+                    case 3: newFragment = new Password(); break;
+//                    case 1: break;
+//                    case 2: break;
+//                    case 4: break;
+                    default: newFragment = new ModuleRecycler();
+                }
                 newFragment.setArguments(args);
-
                 FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
 
                 // Replace whatever is in the fragment_container view with this fragment,

@@ -21,7 +21,7 @@ public class DashboardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
+        container.removeAllViews();
         return root;
     }
 }

@@ -24,7 +24,7 @@ public class AchievementsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        container.removeAllViews();
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
 
         // Initialise recyclerView
