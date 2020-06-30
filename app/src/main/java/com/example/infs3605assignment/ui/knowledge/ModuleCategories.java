@@ -1,5 +1,7 @@
 package com.example.infs3605assignment.ui.knowledge;
 
+import com.example.infs3605assignment.R;
+
 import java.util.ArrayList;
 
 public class ModuleCategories {
@@ -45,9 +47,10 @@ public class ModuleCategories {
 
     public static ArrayList<ModuleCategories> getCategories() {
         ArrayList<ModuleCategories> categories = new ArrayList<>();
-        categories.add(new ModuleCategories(1, "Module 1", 1));
-        categories.add(new ModuleCategories(2, "Module 2", 2));
-        categories.add(new ModuleCategories(3, "Module 3",3));
+        categories.add(new ModuleCategories(1, "Cyber Attacks", R.drawable.cyberattack));
+        categories.add(new ModuleCategories(2, "Social Engineering", R.drawable.socialengineering));
+        categories.add(new ModuleCategories(3, "Password Security",R.drawable.password));
+        categories.add(new ModuleCategories(4, "Untrusted Sites",R.drawable.untrustedsites));
         return categories;
     }
 }

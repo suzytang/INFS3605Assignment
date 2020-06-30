@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
+import com.example.infs3605assignment.ui.knowledge.activity.Password;
 
 import java.util.ArrayList;
 
@@ -43,8 +44,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.moduleName.setText(categories.get(position).getCategoryName());
-//        holder.categoryImage.setImageResource(categories.get(position).getImage());
-
+        holder.moduleImage.setImageResource(categories.get(position).getImage());
         // On click buttons start respective activities and passes on the category
         holder.learnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +70,22 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
         holder.activityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "Activity Module "+position+1+" Clicked");
+                // Create fragment and give it an argument specifying the article it should show
+                Fragment newFragment = new Password();
+                Bundle args = new Bundle();
+                args.putInt("Level", position+1);
+                newFragment.setArguments(args);
+
+                FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.moduleFrag, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
             }
         });
 
