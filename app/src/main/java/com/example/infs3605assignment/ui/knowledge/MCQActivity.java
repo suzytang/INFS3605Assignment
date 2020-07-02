@@ -27,10 +27,11 @@ import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
+import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
 
 public class MCQActivity extends AppCompatActivity {
     private static final String TAG = "MCQ";
-    private TextView questionText, result, feedback;
+    private TextView questionText, result, feedback, moduleTitle;
     private TextView textViewQuestionCount;
     private RadioGroup rbGroup;
     private RadioButton rb1, rb2, rb3, rb4;
@@ -67,6 +68,8 @@ public class MCQActivity extends AppCompatActivity {
         rb4 = findViewById(R.id.radio_button4);
         result = findViewById(R.id.result);
         feedback = findViewById(R.id.feedback);
+        moduleTitle = findViewById(R.id.moduleTitle);
+        moduleTitle.setText(getCategories().get(level-1).getCategoryName());
         buttonConfirmNext = findViewById(R.id.button_confirm_next);
         dbHelper = new DatabaseHelper(getApplicationContext());
         questionList = dbHelper.getQuestions(level);
@@ -140,6 +143,7 @@ public class MCQActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MCQResults.class);
                 Bundle args = new Bundle();
                 intent.putExtra("bundle", args);
+                intent.putExtra("Level", level);
                 args.putSerializable("MCQInput",inputList);
                 startActivity(intent);
 

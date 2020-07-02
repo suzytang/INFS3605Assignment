@@ -1,17 +1,13 @@
 package com.example.infs3605assignment.ui.knowledge.activity;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,39 +15,30 @@ import android.widget.Toast;
 
 import com.example.infs3605assignment.R;
 import com.google.android.material.textfield.TextInputLayout;
-
 import static android.content.ContentValues.TAG;
+import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
 
-public class Password extends Fragment {
-    private View root;
+public class PasswordActivity extends AppCompatActivity {
     private EditText password;
     private Button checkButton;
     private String feedback;
-    private TextView feedbackTitle, feedbackText;
+    private TextView feedbackTitle, feedbackText, moduleTitle;
     private TextInputLayout passwordLayout;
     private boolean retry;
-    public Password() {
-    }
-
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_password);
+        Intent intent = getIntent();
+        int level = intent.getIntExtra("Level",0);
+        password = findViewById(R.id.passwordInput);
+        passwordLayout = findViewById(R.id.passwordLayout);
+        checkButton = findViewById(R.id.checkButton);
+        feedbackTitle = findViewById(R.id.feedbackTitle);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        container.removeAllViews();
-        // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_password, container, false);
-        password = root.findViewById(R.id.passwordInput);
-        passwordLayout = root.findViewById(R.id.passwordLayout);
-        checkButton = root.findViewById(R.id.checkButton);
-        feedbackTitle = root.findViewById(R.id.feedbackTitle);
-
-        feedbackText = root.findViewById(R.id.feedbackText);
-
+        feedbackText = findViewById(R.id.feedbackText);
+        moduleTitle = findViewById(R.id.moduleTitle);
+        moduleTitle.setText(getCategories().get(level-1).getCategoryName());
         retry = true;
         retry();
         password.addTextChangedListener(new TextWatcher() {
@@ -75,7 +62,7 @@ public class Password extends Fragment {
                 Log.i(TAG, "Check Button Clicked");
                 if (!retry) {
                     if (password.length()<8) {
-                        Toast.makeText(getContext(), "Please enter at least 8 characters first", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Please enter at least 8 characters first", Toast.LENGTH_SHORT).show();
                     } else {
                         feedback();
                     }
@@ -84,7 +71,6 @@ public class Password extends Fragment {
                 }
             }
         });
-        return root;
     }
 
     private void retry() {
