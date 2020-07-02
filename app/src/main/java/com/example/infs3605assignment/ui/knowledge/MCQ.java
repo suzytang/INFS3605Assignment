@@ -2,6 +2,7 @@ package com.example.infs3605assignment.ui.knowledge;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -93,7 +94,7 @@ public class MCQ extends Fragment {
         // Initalise variables
         int total = 0;
 
-        // Calculate total score and coins earned
+        // Calculate total score
         for (int i = 0; i < inputList.size(); i++) {
             if (inputList.get(i).getScore() == 1) {
                 total++;
@@ -118,6 +119,11 @@ public class MCQ extends Fragment {
             grade.setTextColor(Color.GREEN);
 //            reaction.setImageResource(R.drawable.happy);
         }
+
+        // Input code to calculate each achievement
+
+
+
 
         // Button to retry
         retryButton.setOnClickListener(new View.OnClickListener() {
@@ -309,5 +315,28 @@ public class MCQ extends Fragment {
                 }
             }
         });
+    }
+
+
+
+    private void AchievementsDialog(String achievement) {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_reward);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        TextView text = (TextView) dialog.findViewById(R.id.text);
+        Button closeButton = (Button) dialog.findViewById(R.id.closeButton);
+
+        text.setText("You have unlocked the " + achievement + " achievement!");
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
     }
 }
