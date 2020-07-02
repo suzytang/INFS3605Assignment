@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
+
     }
 
     @Override
@@ -39,6 +40,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("CREATE TABLE MCQ (ID INTEGER PRIMARY KEY AUTOINCREMENT,LEVEL INTEGER, NUMBER INTEGER, QUESTION TEXT, OPT1 TEXT," +
                 "OPT2 TEXT, OPT3 TEXT, OPT4 TEXT, CORRECT INTEGER, FEEDBACK TEXT, ANSWERED INTEGER)");
         fillQuestionsTable();
+
+
+        db.execSQL("CREATE TABLE ACHIEVEMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, PROGRESS INTEGER)");
+        db.execSQL("INSERT INTO ACHIEVEMENTS (NAME, PROGRESS) VALUES " +
+                "(1, 'Champ', 0)");
 
     }
 
