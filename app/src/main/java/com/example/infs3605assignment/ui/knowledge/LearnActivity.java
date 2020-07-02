@@ -16,11 +16,12 @@ import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
 
 import static android.content.ContentValues.TAG;
+import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
 
 public class LearnActivity extends AppCompatActivity {
     private ScrollView scrollView;
     private TextView heading1, content1, heading2, content2, heading3, content3, heading4, content4,
-            heading5, heading6, heading7, content5, content6, content7;
+            heading5, heading6, heading7, content5, content6, content7, moduleTitle;
     private Button backButton, activityButton, quizButton;
     private int level;
 
@@ -31,7 +32,8 @@ public class LearnActivity extends AppCompatActivity {
         Intent intent = getIntent();
         level = intent.getIntExtra("Level",0);
         ModuleData data = ModuleData.getData().get(level - 1);
-
+        moduleTitle = findViewById(R.id.moduleTitle);
+        moduleTitle.setText(getCategories().get(level-1).getCategoryName());
         scrollView = findViewById(R.id.scrollView);
         heading1 = findViewById(R.id.heading1);
         content1 = findViewById(R.id.content1);

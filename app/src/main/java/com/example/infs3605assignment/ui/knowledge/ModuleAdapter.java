@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
-import com.example.infs3605assignment.ui.knowledge.activity.Password;
+import com.example.infs3605assignment.ui.knowledge.activity.PasswordActivity;
 
 import java.util.ArrayList;
 
@@ -64,24 +64,14 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
 
                 Bundle args = new Bundle();
                 args.putInt("Level", position+1);
-                Fragment newFragment;
                 switch (position + 1) {
-                    case 3: newFragment = new Password(); break;
+                    case 3: Intent intent = new Intent(context, PasswordActivity.class);
+                        intent.putExtra("Level",position+1);
+                        context.startActivity(intent);; break;
 //                    case 1: break;
 //                    case 2: break;
 //                    case 4: break;
-                    default: newFragment = new ModuleRecycler();
                 }
-                newFragment.setArguments(args);
-                FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.moduleFrag, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
             }
         });
 
