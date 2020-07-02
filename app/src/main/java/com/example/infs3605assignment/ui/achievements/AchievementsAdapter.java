@@ -1,13 +1,9 @@
 package com.example.infs3605assignment.ui.achievements;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,12 +40,14 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
         holder.progressBar.setProgress(achievements.get(position).getProgress());
 
         if (achievements.get(position).getProgress() == 100){
-            holder.description.setVisibility(View.INVISIBLE);
-            holder.progressBar.setVisibility(View.INVISIBLE);
-            holder.reward.setVisibility(View.VISIBLE);
+            holder.name.setAlpha((float) 0.3);
+            holder.description.setAlpha((float) 0.3);
+            holder.image.setAlpha((float) 0.3);
+            holder.progressBar.setAlpha((float) 0.3);
+            holder.completed.setVisibility(View.VISIBLE);
         }
 
-        holder.reward.setOnClickListener(new View.OnClickListener() {
+        /*holder.reward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(mContext);
@@ -71,7 +69,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
                     }
                 });
             }
-        });
+        });*/
     }
 
     // Return size of dataset
@@ -82,11 +80,9 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
 
     // Create ViewHolder for achievements_item
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
-        TextView description;
-        ImageView image;
+        TextView name, description;
+        ImageView image, completed;
         ProgressBar progressBar;
-        Button reward;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -95,8 +91,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
             this.description = itemView.findViewById(R.id.description);
             this.image = itemView.findViewById(R.id.image);
             this.progressBar = itemView.findViewById(R.id.progressBar);
-            this.reward = itemView.findViewById(R.id.reward);
-
+            this.completed = itemView.findViewById(R.id.completed);
         }
     }
 }
