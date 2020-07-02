@@ -1,6 +1,8 @@
 package com.example.infs3605assignment.ui.knowledge;
 
-public class MCQInput {
+import java.io.Serializable;
+
+public class MCQInput implements Serializable {
     private String question;
     private String userAnswer;
     private String correctAnswer;
