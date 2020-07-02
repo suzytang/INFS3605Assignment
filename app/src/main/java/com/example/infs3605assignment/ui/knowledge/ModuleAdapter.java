@@ -1,6 +1,7 @@
 package com.example.infs3605assignment.ui.knowledge;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,21 +51,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Learn Module "+position+1+" Clicked");
-                // Create fragment and give it an argument specifying the article it should show
-                Fragment newFragment = new ModuleContent();
-                Bundle args = new Bundle();
-                args.putInt("Level", position+1);
-                newFragment.setArguments(args);
-
-                FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.moduleFrag, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                Intent intent = new Intent(context, LearnActivity.class);
+                intent.putExtra("Level",position+1);
+                context.startActivity(intent);
             }
         });
         holder.activityButton.setOnClickListener(new View.OnClickListener() {
@@ -100,21 +89,9 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Quiz Module "+position+1+" Clicked");
-                // Create fragment and give it an argument specifying the article it should show
-                Fragment newFragment = new MCQ();
-                Bundle args = new Bundle();
-                args.putInt("Level", position+1);
-                newFragment.setArguments(args);
-
-                FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.moduleFrag, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                Intent intent = new Intent(context, MCQActivity.class);
+                intent.putExtra("Level",position+1);
+                context.startActivity(intent);
             }
         });
     }

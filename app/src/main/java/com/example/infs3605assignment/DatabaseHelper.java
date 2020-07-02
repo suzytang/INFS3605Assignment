@@ -16,7 +16,7 @@ import java.util.List;
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "uhifJKSDFBKSDJB4aifa235234b.db";
+    public static final String DATABASE_NAME = "726348236.db";
     private SQLiteDatabase db;
 
     public DatabaseHelper(Context context) {
@@ -44,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         db.execSQL("CREATE TABLE ACHIEVEMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, PROGRESS INTEGER)");
         db.execSQL("INSERT INTO ACHIEVEMENTS (NAME, PROGRESS) VALUES " +
-                "(1, 'Champ', 0)");
+                "('Champ', 0)");
 
     }
 
@@ -65,13 +65,36 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 //    }
 
     private void fillQuestionsTable() {
-        addQuestion(new MCQuestion(1, 1, "A is correct", "A", "B", "C", "D", "feedback", 1));
-        addQuestion(new MCQuestion(1, 2, "B is correct", "A", "B", "C", "D", "feedback", 2));
-        addQuestion(new MCQuestion(1, 3, "C is correct", "A", "B", "C", "D", "feedback", 3));
-        addQuestion(new MCQuestion(1, 4, "D is correct", "A", "B", "C", "D", "feedback", 4));
-        addQuestion(new MCQuestion(2, 1, "A is correct", "A", "B", "C", "D", "feedback", 1));
-        addQuestion(new MCQuestion(2, 2, "B is correct", "A", "B", "C", "D", "feedback", 2));
-        addQuestion(new MCQuestion(3, 1, "C is correct", "A", "B", "C", "D", "feedback", 3));
+        addQuestion(new MCQuestion(1,1,"Why are cyber vulnerabilities unlikely to ever go away?","They’re protected in a secret base on the moon","The government won’t allow people to fix them","Criminals need them to steal identities","They are side effects of the freedom and ease of communicating","We live in a ever-connected world through the internet. Making it easier for attackers to reach you",4));
+        addQuestion(new MCQuestion(1,2,"Which of these groups exploits cyber vulnerabilities?","Criminals","Governments","Hackers","All of the above","All groups exploit cyber vulnerabilities.. Yes including government!",4));
+        addQuestion(new MCQuestion(1,3,"What is Ransomware","Malware that is often disguised as legitimate software","A good type of malware","Software that encrypts a user's file","Software that secures user files","Ransomware is a form of malware that encrypts a victim's files. The attacker then demands a ransom from the victim to restore access to the data upon payment",3));
+        addQuestion(new MCQuestion(1,4,"Harmful programs used to disrupt computer operation, gather sensitive information, or gain access to private computer systems are commonly referred to as:","Adware","Malware","Computer Viruses","Spyware","Malicious software that breaches a network through a vulnerability",2));
+        addQuestion(new MCQuestion(1,5,"Malicious software collecting information about users without their knowledge/consent is known as:","Trojan","Virus","Ransomware","Spyware","Spyware is a type of malware that aims to gather information about a person or organization, without their knowledge",4));
+        addQuestion(new MCQuestion(1,6,"Which of the following answers best describes a type of mobile software that while running in disguise of a legitimate program tries to harm user devices or personal data?","Trojan Horse","Malicious app","Phage Virus","Spyware","A Trojan horse or Trojan is a type of malware that is often disguised as legitimate software",1));
+        addQuestion(new MCQuestion(1,7,"Any type of attack in which a third party manages to get in between the two parties communicating is called ____.","Stalking","Listening","Man-In-The-Middle","Crowding","MITM occur when attackers insert themselves into a two-party transaction",3));
+        addQuestion(new MCQuestion(1,8,"Which of the following is the best answer for how to secure your device?","Secure Wi-fi","Firewall Installation","Continually update antiviral software","All of the above","All are great measures to secure your device",4));
+        addQuestion(new MCQuestion(1,9,"You are sitting in the local café trying to send emails and catch up on tasks. To protect your communications over these public networks you should always do the following:","Find ther strongest wifi signal near you","Turn off your file sharing","Use a Virtual Private Network","Use Hotspot","A VPN allows a company to leverage Internet resources, enabling employees to easily collaborate from various locations, including home.",3));
+        addQuestion(new MCQuestion(1,10,"Cyber security is the practice of ensuring the integrity, confidentiality, and availability of information. It helps prevent dangerous accidents like hard drive failures or power outages, and from attacks by adversaries. Three common controls used to protect the availability of information are","Redundancy, backups and access controls ","Encryption, file permissions and access controls","Access controls, logging and digital signatures","Hashes, logging and backups","To project your files these measures will block attackers from reaching it",2));
+        addQuestion(new MCQuestion(2,1,"What is the goal of social engineering?","Sabotage a person’s social media","To catfish someone","To gain vital personal information ","To build trust","Social Engineering is the act of tricking someone into sharing confidential/sensitive information",3));
+        addQuestion(new MCQuestion(2,2,"An email claiming that you have won the lottery, as long as you fill out the corresponding information, is an exmaple of what type of social enginnering attack?","Phishing","Baiting","Pretexting","Quid Pro Quo","Hacker is trying to bait you by saying you won the lottery. Don’t fall for it!",2));
+        addQuestion(new MCQuestion(2,3,"What is the most common social engineering attack?","Phishing","Pretexting","Baiting","Tailgating","Phishing attacks are most common and accounts for 90% of databreaches!",1));
+        addQuestion(new MCQuestion(2,4,"Social Engineering _____.","Relies on tricking and deceiving someone","Is illegal in the Us","Requires a computer and internet","Is rarely used today","Social engineering is less technical and focuses on human qualities such as trust",1));
+        addQuestion(new MCQuestion(2,5,"Following an individual into a secure area without permission is known as _____.","Baiting","Shoulder surfing","Stalking","Tailgating","Tailgating plays on human’s helpfulness and enters an area without permission",4));
+        addQuestion(new MCQuestion(2,6,"Which of the following practices best prevents Social Engineering","Firewalls","Blocking all social media","Don't reply to communications that require you to input sensitive data","Confirm with a friend","As long as sensitive information is not provided, you are less exposed to attacks",3));
+        addQuestion(new MCQuestion(2,7,"The practice of using a telephone system to manipulate user into disclosing confidential information is called:","Whaling","Quid Pro Quo","Vishing","Pharming","Vishing is a similar attack with Phishing but requires the voice.",3));
+        addQuestion(new MCQuestion(2,8,"An attacker impersonating as IT security sends you a message discussing you’re account as been hacked and needs information to help secure the account. Which social engineering principles apply to this attack scenario?","Authority, intimidation, Familiarity","Trust, Urgency, Authority ","Scarcity, Familiarity, Trust","Trust, Intimidation, Authority","Trust coming from IT security team, urgency as the account is hacked and authority coming from someone with security background",2));
+        addQuestion(new MCQuestion(2,9,"Which of the following is NOT an example of a social engineering attack?","Spamming","Baiting","Pretexting","Quid Pro Quo","Spamming is not a social engineering attack",1));
+        addQuestion(new MCQuestion(2,10,"Which of the following is the primary countermeasure to social engineering?","Awareness","Firewalls","Anti-virus","Not-replying","Awareness is the main protection to social engineering as social engineering plays on human behaviour",1));
+        addQuestion(new MCQuestion(3,1,"How long should a password be?","5","8","10+","The length of your password does not matter","10+ is an ideal length for passwords.",3));
+        addQuestion(new MCQuestion(3,2,"Which is the weakest password?","123456","Password","DogsAreGood1","Asdf","The weakest password is 123456.",1));
+        addQuestion(new MCQuestion(3,3,"Which is the strongest password?","D0gs2","Dogs1","DoOGsAr3.,!@G00d","1Ki79yd3","1Ki79yd3, which is a series of random letters, numbers and special characters are the strongest password combiation after passphrases.",3));
+        addQuestion(new MCQuestion(3,4,"What is the most secure type of password","Short, easy to remember password","Personal information that is relevant to the user","Series of random characters and numbers","Long list of random words","The most secure type of passwords are passphrases, which is a long list of random words.",4));
+        addQuestion(new MCQuestion(3,5,"What is the strategy called when hackers try every combination of characters until they get your password?","Brute force","Dictionary","Phishing","Log Checking","Brute force is when hackers try every combination of characters until they match your password.",1));
+        addQuestion(new MCQuestion(3,6,"What is a passphrase?","List of passwords","Series of random words put together","ID provided to employees","Series of random numbers and characters","Passphrases are a series of random words put together, and is confirmed to be the strongest type of passwords.",2));
+        addQuestion(new MCQuestion(3,7,"What is two factor authentication?","Requiring two passwords","One person grants permission to another user","Confirming user access by using two different factors of verification","Requires supervision from a super account to allow access to accounts","Two factor authentication is when a user has to confirm access by using two different factors of verification. For example, when you log into your gmail account from another device, you are required to confirm your identity.",3));
+        addQuestion(new MCQuestion(3,8,"What characters should you use in a password to make it strong","Letters and Numbers","Mixed case, upper and lower characters","Special characters","All of the above","By using a combination of all of the above, passwords would be harder to guess by infiltrators.",4));
+        addQuestion(new MCQuestion(3,9,"How long would it take for a hacker to crack a 10 character password?","A few hours","Less than a week","A year","It depends","The time it would take for a hacker to crack your password, despite the length, is dependent on the character combination e.g upper and lower cases, special characters, passphrase usage, numbers etc.",4));
+        addQuestion(new MCQuestion(3,10,"What is the best way to choose a new password?","Adding a number or special character at the front and end of your password","Something easy to remember such as your birthdate, first name, pet name etc","Passphrases, and modified passphrases  with complex patterns","Short and concise","Passphrases are a series of random words put together, and is confirmed to be the strongest type of passwords. They can also be modified, such as using capital letters, numbers around the words, so that it is more secure",3));
     }
 
     private void addQuestion(MCQuestion question) {

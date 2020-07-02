@@ -1,36 +1,34 @@
 package com.example.infs3605assignment.ui.knowledge;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.infs3605assignment.DatabaseHelper;
-import com.example.infs3605assignment.MainActivity;
-import com.example.infs3605assignment.R;
-
-import java.util.ArrayList;
-
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.infs3605assignment.DatabaseHelper;
+import com.example.infs3605assignment.MainActivity;
+import com.example.infs3605assignment.R;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class MCQ extends Fragment {
+public class MCQActivity extends AppCompatActivity {
     private static final String TAG = "MCQ";
     private TextView questionText, result, feedback;
     private TextView textViewQuestionCount;
@@ -43,15 +41,14 @@ public class MCQ extends Fragment {
     private boolean answered, last;
     private ArrayList<MCQInput> inputList;
     private Dialog dialog;
-    private View root;
     DatabaseHelper dbHelper;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        container.removeAllViews();
-        level = getArguments().getInt("Level");
-        root = inflater.inflate(R.layout.fragment_m_c_q, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_m_c_q);
+        Intent intent = getIntent();
+        level = intent.getIntExtra("Level",0);
         // Inflate the layout for this fragment
         // Radio buttons for each question
         // Store user answers
@@ -59,28 +56,24 @@ public class MCQ extends Fragment {
         //// Pass arraylist with MCQInput and categories
         //args.putSerializable("arraylist", answers);
         //intent2.putExtra("bundle", args);
-        questionText = root.findViewById(R.id.questionText);
-//        textViewScore = root.findViewById(R.id.text_view_score);
-        textViewQuestionCount = root.findViewById(R.id.questionNo);
-//        textViewCountDown = root.findViewById(R.id.text_view_countdown);
-        rbGroup = root.findViewById(R.id.radio_group);
-        rb1 = root.findViewById(R.id.radio_button1);
-        rb2 = root.findViewById(R.id.radio_button2);
-        rb3 = root.findViewById(R.id.radio_button3);
-        rb4 = root.findViewById(R.id.radio_button4);
-        result = root.findViewById(R.id.result);
-        feedback = root.findViewById(R.id.feedback);
-        buttonConfirmNext = root.findViewById(R.id.button_confirm_next);
-        dbHelper = new DatabaseHelper(getContext());
+        questionText = findViewById(R.id.questionText);
+//        textViewScore = findViewById(R.id.text_view_score);
+        textViewQuestionCount = findViewById(R.id.questionNo);
+//        textViewCountDown = findViewById(R.id.text_view_countdown);
+        rbGroup = findViewById(R.id.radio_group);
+        rb1 = findViewById(R.id.radio_button1);
+        rb2 = findViewById(R.id.radio_button2);
+        rb3 = findViewById(R.id.radio_button3);
+        rb4 = findViewById(R.id.radio_button4);
+        result = findViewById(R.id.result);
+        feedback = findViewById(R.id.feedback);
+        buttonConfirmNext = findViewById(R.id.button_confirm_next);
+        dbHelper = new DatabaseHelper(getApplicationContext());
         questionList = dbHelper.getQuestions(level);
         startQuiz();
-
-        return root;
     }
-
-    @SuppressLint("SetTextI18n")
     private void quizFinished() {
-        dialog = new Dialog(getActivity());
+        dialog = new Dialog(this);
         dialog.setContentView(R.layout.fragment_m_c_q_dialog);
         // Link to XMl
         TextView grade = dialog.findViewById(R.id.grade);
@@ -94,7 +87,7 @@ public class MCQ extends Fragment {
         // Initalise variables
         int total = 0;
 
-        // Calculate total score
+        // Calculate total score and coins earned
         for (int i = 0; i < inputList.size(); i++) {
             if (inputList.get(i).getScore() == 1) {
                 total++;
@@ -102,8 +95,8 @@ public class MCQ extends Fragment {
         }
 
         // Calculate grade and set text
-        double percentage = Double.valueOf(total)/Double.valueOf(inputList.size());
-        score.setText(total+" OUT OF "+inputList.size());
+        double percentage = Double.valueOf(total) / Double.valueOf(inputList.size());
+        score.setText(total + " OUT OF " + inputList.size());
         if (percentage < 0.5) {
             // Set text for fail
             grade.setText("Failed!");
@@ -120,11 +113,6 @@ public class MCQ extends Fragment {
 //            reaction.setImageResource(R.drawable.happy);
         }
 
-        // Input code to calculate each achievement
-
-
-
-
         // Button to retry
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,18 +127,8 @@ public class MCQ extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Module Recycler Clicked");
-                // Create fragment and give it an argument specifying the article it should show
-                Fragment newFragment = new ModuleRecycler();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.mcqFrag, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
-                dialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -159,31 +137,17 @@ public class MCQ extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Result Clicked");
-                // Create fragment and give it an argument specifying the article it should show
-                Fragment newFragment = new MCQRecycler();
+                Intent intent = new Intent(getApplicationContext(), MCQResults.class);
                 Bundle args = new Bundle();
-                args.putInt("Level", level);
-                args.putSerializable("MCQInput", inputList);
-                newFragment.setArguments(args);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.mcqFrag, newFragment);
-                transaction.addToBackStack(null);
+                intent.putExtra("bundle", args);
+                args.putSerializable("MCQInput",inputList);
+                startActivity(intent);
 
-                // Commit the transaction
-                transaction.commit();
-                dialog.dismiss();
             }
         });
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     private void showNextQuestion() {
@@ -243,7 +207,7 @@ public class MCQ extends Fragment {
                         input.setFeedback(currentQuestion.getFeedback());
                         Log.v(TAG, "input feedback set: "+currentQuestion.getFeedback());
 
-                        RadioButton rbSelected = root.findViewById(rbGroup.getCheckedRadioButtonId());
+                        RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
                         int answer = rbGroup.indexOfChild(rbSelected) + 1;
                         if (answer == currentQuestion.getAnswer()) {
                             dbHelper.setAnswered(level, currentQuestion.getNumber());
@@ -308,35 +272,12 @@ public class MCQ extends Fragment {
                             last = true;
                         }
                     } else {
-                        Toast.makeText(getActivity(), "Please select an answer", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Please select an answer", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     showNextQuestion();
                 }
             }
         });
-    }
-
-
-
-    private void AchievementsDialog(String achievement) {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.dialog_reward);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-
-        TextView text = (TextView) dialog.findViewById(R.id.text);
-        Button closeButton = (Button) dialog.findViewById(R.id.closeButton);
-
-        text.setText("You have unlocked the " + achievement + " achievement!");
-
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-
     }
 }
