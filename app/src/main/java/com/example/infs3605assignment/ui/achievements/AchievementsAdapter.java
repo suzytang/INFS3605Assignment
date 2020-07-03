@@ -1,6 +1,7 @@
 package com.example.infs3605assignment.ui.achievements;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.infs3605assignment.DatabaseHelper;
 import com.example.infs3605assignment.R;
 
 import java.util.ArrayList;
@@ -17,12 +19,13 @@ import java.util.ArrayList;
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.MyViewHolder> {
 
     Context mContext;
-    ArrayList<Achievements> achievements;
+    Achievements achievements = new Achievements();
+    Cursor cursor;
 
 
-    public AchievementsAdapter(Context context,ArrayList<Achievements> achievements) {
+    public AchievementsAdapter(Context context, Cursor cursor) {
         this.mContext = context;
-        this.achievements = achievements;
+        this.cursor = cursor;
     }
 
     @Override
@@ -34,12 +37,20 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     // Replace contents of the view with data
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.name.setText(achievements.get(position).getName());
-        holder.description.setText(achievements.get(position).getDescription());
-        holder.image.setImageResource(achievements.get(position).getImage());
-        holder.progressBar.setProgress(achievements.get(position).getProgress());
+        if(!cursor.moveToPosition(position)){
+            return;
+        }
 
-        if (achievements.get(position).getProgress() == 100){
+        int progress = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.PROGRESS));
+        String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME));
+
+        holder.name.setText(name);
+        holder.description.setText(achievements.searchAchievements(name).getDescription());
+        holder.image.setImageResource(achievements.searchAchievements(name).getImage());
+
+        holder.progressBar.setProgress(progress);
+
+        if (progress == 100){
             holder.name.setAlpha((float) 0.3);
             holder.description.setAlpha((float) 0.3);
             holder.image.setAlpha((float) 0.3);
@@ -75,7 +86,20 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     // Return size of dataset
     @Override
     public int getItemCount() {
-        return achievements.size();
+        return cursor.getCount();
+    }
+
+    public void swapCursor (Cursor newCursor){
+        // Deletes the cursor if it isn't null
+        if (cursor != null){
+            cursor.close();
+        }
+        // Assigns newCursor to cursor
+        cursor = newCursor;
+
+        if (newCursor != null){
+            notifyDataSetChanged();
+        }
     }
 
     // Create ViewHolder for achievements_item

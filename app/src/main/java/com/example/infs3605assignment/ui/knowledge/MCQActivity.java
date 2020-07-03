@@ -95,6 +95,10 @@ public class MCQActivity extends AppCompatActivity {
         for (int i = 0; i < inputList.size(); i++) {
             if (inputList.get(i).getScore() == 1) {
                 total++;
+                // set high score for quiz in database
+                dbHelper.setHighScore(total, level);
+
+
             }
         }
 
@@ -112,6 +116,8 @@ public class MCQActivity extends AppCompatActivity {
             dbHelper.setCompleted(level);
             if (dbHelper.checkCompleted(level)) {
                 commentText.setText("Set Completed");
+                // set progress if 100
+                dbHelper.setProgress("Champ", 34);
             };
 //            reaction.setImageResource(R.drawable.happy);
         } else {

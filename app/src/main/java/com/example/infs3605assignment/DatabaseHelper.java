@@ -21,8 +21,11 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "sdjbgkdsbj.db";
+    public static final String DATABASE_NAME = "ssfhjfhmghdsbj.db";
     private SQLiteDatabase db;
+    public static final String ACHIEVEMENTS = "ACHIEVEMENTS";
+    public static final String PROGRESS = "PROGRESS";
+    public static final String NAME = "NAME";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -42,18 +45,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 //        db.execSQL("INSERT INTO LEARN (LEVEL, HEAD1, CON1, HEAD2, CON2, HEAD3, CON3, HEAD4, CON4) VALUES " +
 //                "(3, '3 - Heading 1','Content 1','Heading 2','Content 2','Heading 3','Content 3','Heading 4','Content 4')");
 //        db.execSQL("INSERT INTO LEARN (LEVEL, HEAD1, CON1, HEAD2, CON2, HEAD3, CON3, HEAD4, CON4, HEAD5, CON5, HEAD6, CON6, HEAD7, CON7) VALUES (1,"What is a cyber attack","A cyber attack is an attack launched from one or more computers against another computer, multiple computers or networks. Cyber attacks can be broken down into two broad types: attacks where the goal is to disable the target computer, or attacks where the goal is to get access to the target computer's data and perhaps gain admin privileges on it. \n Cyber attacks will always be a problem due to the side effects of freedom and ease of communicating online. Therefore education on different types of attacks is important. ","Malware","Malware is a term used to describe malicious software that breaches a network through a vulnerability, typically when a user clicks a dangerous link or email attachment that then installs risky software. Once inside the system, malware can do the following: \n •	Blocks access to key components of the network (ransomware) \n •	Installs malware or additional harmful software \n •	Covertly obtains information by transmitting data from the hard drive (spyware) \n •	Disrupts certain components and renders the system inoperable ","Ransomware and Spyware ","Ransomware is a form of malware that encrypts a victim's files. The attacker then demands a ransom from the victim to restore access to the data upon payment. \n Spyware is a type of malware that aims to gather information about a person or organization, without their knowledge, and send such information to hack another entity without the consumer's consent.","Denial of Service","A denial-of-service attack floods systems, servers, or networks with traffic to exhaust resources and bandwidth. As a result, the system is unable to fulfill legitimate requests. Attackers can also use multiple compromised devices to launch this attack.","Trojan Horse","A Trojan horse or Trojan is a type of malware that is often disguised as legitimate software. Trojans can be employed by cyber-thieves and hackers trying to gain access to users' systems. Once activated, Trojans can enable cyber-criminals to spy on you, steal your sensitive data, and gain backdoor access to your system.","Man-In-The-Middle Attack","Man-in-the-middle (MitM) attacks, also known as eavesdropping attacks, occur when attackers insert themselves into a two-party transaction. Once the attackers interrupt the traffic, they can filter and steal data. \n Two common points of entry for MitM attacks: \n 1. On unsecure public Wi-Fi, attackers can insert themselves between a visitor’s device and the network. Without knowing, the visitor passes all information through the attacker. \n 2. Once malware has breached a device, an attacker can install software to process all of the victim’s information ","Prevention","•	Use a firewall for your Internet connection. \n •	Make backup copies of important business data and information. \n •	Secure your Wi-Fi networks \n •	Install, use and regularly update antivirus and antispyware software \n •	Include encryption, file permissions and access controls ")"
-        db.execSQL("CREATE TABLE QUIZ (ID INTEGER PRIMARY KEY AUTOINCREMENT,LEVEL INTEGER, MODULE TEXT, COMPLETED INTEGER)");
+        db.execSQL("CREATE TABLE QUIZ (ID INTEGER PRIMARY KEY AUTOINCREMENT,LEVEL INTEGER, MODULE TEXT, COMPLETED INTEGER, HIGHSCORE INTEGER)");
         addModules();
         db.execSQL("CREATE TABLE MCQ (ID INTEGER PRIMARY KEY AUTOINCREMENT,LEVEL INTEGER, NUMBER INTEGER, QUESTION TEXT, OPT1 TEXT," +
                 "OPT2 TEXT, OPT3 TEXT, OPT4 TEXT, CORRECT INTEGER, FEEDBACK TEXT, ANSWERED INTEGER)");
         fillQuestionsTable();
 
-
-
         db.execSQL("CREATE TABLE ACHIEVEMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, PROGRESS INTEGER)");
-        db.execSQL("INSERT INTO ACHIEVEMENTS (NAME, PROGRESS) VALUES " +
-                "('Champ', 0)");
-
+        db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
+                "('Champ', 10)");
+        db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
+                "('Conqueror', 20)");
+        db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
+                "('Master', 30)");
+        db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
+                "('Winner', 40)");
+        db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
+                "('Scholar', 50)");
     }
 
     @Override
@@ -162,6 +170,30 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("UPDATE MCQ SET ANSWERED = 1 WHERE LEVEL = "+level+" AND NUMBER = "+position);
         db.close();
     }
+
+    public void setHighScore(int highScore, int level){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int score;
+        Cursor csr = db.rawQuery("SELECT HIGHSCORE FROM QUIZ WHERE LEVEL = "+level, null);
+        csr.moveToFirst();
+        score = csr.getInt(csr.getColumnIndex("HIGHSCORE"));
+        if (score > highScore) {
+            db.execSQL("UPDATE QUIZ SET HIGHSCORE = "+highScore);
+        }
+
+    }
+
+    public void setProgress(String name, int progress){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int currentProgress;
+        Cursor csr = db.rawQuery("SELECT PROGRESS FROM ACHIEVEMENTS WHERE NAME = "+"'"+name+"'", null);
+        csr.moveToFirst();
+        currentProgress = csr.getInt(csr.getColumnIndex(name));
+        progress = currentProgress + progress;
+        db.execSQL("UPDATE ACHIEVEMENTS SET PROGRESS" + progress);
+        db.close();
+    }
+
 //    LEVEL, NUMBER, QUESTION, OPT1, OPT2, OPT3, OPT4, CORRECT, FEEDBACK, ANSWERED
 //    public List<MCQuestion> getAllQuestions() {
 //        List<MCQuestion> questionList = new ArrayList<>();
