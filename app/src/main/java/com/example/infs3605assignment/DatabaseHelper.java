@@ -5,18 +5,23 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.infs3605assignment.ui.knowledge.MCQuestion;
+import com.example.infs3605assignment.ui.knowledge.ModuleCategories;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
+import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
 
 // The following code is modified from: Programming Knowledge (2015)
 // Android SQLite Database Tutorial 5
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "726348236.db";
+    public static final String DATABASE_NAME = "sdjbgkdsbj.db";
     private SQLiteDatabase db;
 
     public DatabaseHelper(Context context) {
@@ -37,9 +42,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 //        db.execSQL("INSERT INTO LEARN (LEVEL, HEAD1, CON1, HEAD2, CON2, HEAD3, CON3, HEAD4, CON4) VALUES " +
 //                "(3, '3 - Heading 1','Content 1','Heading 2','Content 2','Heading 3','Content 3','Heading 4','Content 4')");
 //        db.execSQL("INSERT INTO LEARN (LEVEL, HEAD1, CON1, HEAD2, CON2, HEAD3, CON3, HEAD4, CON4, HEAD5, CON5, HEAD6, CON6, HEAD7, CON7) VALUES (1,"What is a cyber attack","A cyber attack is an attack launched from one or more computers against another computer, multiple computers or networks. Cyber attacks can be broken down into two broad types: attacks where the goal is to disable the target computer, or attacks where the goal is to get access to the target computer's data and perhaps gain admin privileges on it. \n Cyber attacks will always be a problem due to the side effects of freedom and ease of communicating online. Therefore education on different types of attacks is important. ","Malware","Malware is a term used to describe malicious software that breaches a network through a vulnerability, typically when a user clicks a dangerous link or email attachment that then installs risky software. Once inside the system, malware can do the following: \n •	Blocks access to key components of the network (ransomware) \n •	Installs malware or additional harmful software \n •	Covertly obtains information by transmitting data from the hard drive (spyware) \n •	Disrupts certain components and renders the system inoperable ","Ransomware and Spyware ","Ransomware is a form of malware that encrypts a victim's files. The attacker then demands a ransom from the victim to restore access to the data upon payment. \n Spyware is a type of malware that aims to gather information about a person or organization, without their knowledge, and send such information to hack another entity without the consumer's consent.","Denial of Service","A denial-of-service attack floods systems, servers, or networks with traffic to exhaust resources and bandwidth. As a result, the system is unable to fulfill legitimate requests. Attackers can also use multiple compromised devices to launch this attack.","Trojan Horse","A Trojan horse or Trojan is a type of malware that is often disguised as legitimate software. Trojans can be employed by cyber-thieves and hackers trying to gain access to users' systems. Once activated, Trojans can enable cyber-criminals to spy on you, steal your sensitive data, and gain backdoor access to your system.","Man-In-The-Middle Attack","Man-in-the-middle (MitM) attacks, also known as eavesdropping attacks, occur when attackers insert themselves into a two-party transaction. Once the attackers interrupt the traffic, they can filter and steal data. \n Two common points of entry for MitM attacks: \n 1. On unsecure public Wi-Fi, attackers can insert themselves between a visitor’s device and the network. Without knowing, the visitor passes all information through the attacker. \n 2. Once malware has breached a device, an attacker can install software to process all of the victim’s information ","Prevention","•	Use a firewall for your Internet connection. \n •	Make backup copies of important business data and information. \n •	Secure your Wi-Fi networks \n •	Install, use and regularly update antivirus and antispyware software \n •	Include encryption, file permissions and access controls ")"
+        db.execSQL("CREATE TABLE QUIZ (ID INTEGER PRIMARY KEY AUTOINCREMENT,LEVEL INTEGER, MODULE TEXT, COMPLETED INTEGER)");
+        addModules();
         db.execSQL("CREATE TABLE MCQ (ID INTEGER PRIMARY KEY AUTOINCREMENT,LEVEL INTEGER, NUMBER INTEGER, QUESTION TEXT, OPT1 TEXT," +
                 "OPT2 TEXT, OPT3 TEXT, OPT4 TEXT, CORRECT INTEGER, FEEDBACK TEXT, ANSWERED INTEGER)");
         fillQuestionsTable();
+
 
 
         db.execSQL("CREATE TABLE ACHIEVEMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, PROGRESS INTEGER)");
@@ -95,8 +103,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         addQuestion(new MCQuestion(3,8,"What characters should you use in a password to make it strong","Letters and Numbers","Mixed case, upper and lower characters","Special characters","All of the above","By using a combination of all of the above, passwords would be harder to guess by infiltrators.",4));
         addQuestion(new MCQuestion(3,9,"How long would it take for a hacker to crack a 10 character password?","A few hours","Less than a week","A year","It depends","The time it would take for a hacker to crack your password, despite the length, is dependent on the character combination e.g upper and lower cases, special characters, passphrase usage, numbers etc.",4));
         addQuestion(new MCQuestion(3,10,"What is the best way to choose a new password?","Adding a number or special character at the front and end of your password","Something easy to remember such as your birthdate, first name, pet name etc","Passphrases, and modified passphrases  with complex patterns","Short and concise","Passphrases are a series of random words put together, and is confirmed to be the strongest type of passwords. They can also be modified, such as using capital letters, numbers around the words, so that it is more secure",3));
+        addQuestion(new MCQuestion(4, 1, "Answer A", "A","B","C","D","",1));
+        addQuestion(new MCQuestion(4, 2, "Answer B", "A","B","C","D","",2));
+        addQuestion(new MCQuestion(4, 3, "Answer C", "A","B","C","D","",3));
+        addQuestion(new MCQuestion(4, 4, "Answer D", "A","B","C","D","",4));
+        addQuestion(new MCQuestion(4, 5, "Answer A", "A","B","C","D","",1));
+        addQuestion(new MCQuestion(4, 6, "Answer B", "A","B","C","D","",2));
+        addQuestion(new MCQuestion(4, 7, "Answer C", "A","B","C","D","",3));
+        addQuestion(new MCQuestion(4, 8, "Answer D", "A","B","C","D","",4));
+        addQuestion(new MCQuestion(4, 9, "Answer A", "A","B","C","D","",1));
+        addQuestion(new MCQuestion(4, 10, "Answer B", "A","B","C","D","",2));
     }
-
     private void addQuestion(MCQuestion question) {
         ContentValues cv = new ContentValues();
         cv.put("LEVEL", question.getLevel());
@@ -110,6 +127,34 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         cv.put("FEEDBACK", question.getFeedback());
         cv.put("ANSWERED", 0);
         db.insert("MCQ", null, cv);
+    }
+    private void addModules() {
+        ArrayList<ModuleCategories> categories = getCategories();
+        for (int i = 0; i < categories.size(); i++) {
+            ContentValues cv = new ContentValues();
+            cv.put("LEVEL", categories.get(i).getLevel());
+            cv.put("MODULE", categories.get(i).getCategoryName());
+            cv.put("COMPLETED", 0);
+            db.insert("QUIZ", null, cv);
+        }
+    }
+    public void setCompleted(int level)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE QUIZ SET COMPLETED = 1 WHERE LEVEL = "+level);
+        db.close();
+    }
+
+    public boolean checkCompleted(int level)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int completed;
+        Cursor csr = db.rawQuery("SELECT COMPLETED FROM QUIZ WHERE LEVEL = "+level, null);
+        csr.moveToFirst();
+        completed = csr.getInt(csr.getColumnIndex("COMPLETED"));
+        if (completed == 0) {
+            return false;
+        } else {
+            return  true;
+        }
     }
 
     public void setAnswered(int level, int position)  {

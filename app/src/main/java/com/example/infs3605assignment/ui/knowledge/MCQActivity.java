@@ -108,6 +108,10 @@ public class MCQActivity extends AppCompatActivity {
         } else if (percentage == 1) {
             // Set text for 100% in self learn
             grade.setText("Perfect!");
+            dbHelper.setCompleted(level);
+            if (dbHelper.checkCompleted(level)) {
+                commentText.setText("Set Completed");
+            };
 //            reaction.setImageResource(R.drawable.happy);
         } else {
             // Set text for pass
