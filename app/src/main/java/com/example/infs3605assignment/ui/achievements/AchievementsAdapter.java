@@ -50,7 +50,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
 
         holder.progressBar.setProgress(progress);
 
-        if (progress == 100){
+        if (progress >= 100){
             holder.name.setAlpha((float) 0.3);
             holder.description.setAlpha((float) 0.3);
             holder.image.setAlpha((float) 0.3);

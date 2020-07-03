@@ -96,15 +96,14 @@ public class MCQActivity extends AppCompatActivity {
             if (inputList.get(i).getScore() == 1) {
                 total++;
                 // set high score for quiz in database
-                dbHelper.setHighScore(total, level);
-
-
+                //dbHelper.setHighScore(total, level);
             }
         }
 
         // Calculate grade and set text
         double percentage = Double.valueOf(total) / Double.valueOf(inputList.size());
         score.setText(total + " OUT OF " + inputList.size());
+
         if (percentage < 0.5) {
             // Set text for fail
             grade.setText("Failed!");
@@ -114,16 +113,18 @@ public class MCQActivity extends AppCompatActivity {
             // Set text for 100% in self learn
             grade.setText("Perfect!");
             dbHelper.setCompleted(level);
+            // set progress if 100
+            dbHelper.setProgress("Champ", 34);
+            dbHelper.setProgress("Master", 17);
             if (dbHelper.checkCompleted(level)) {
                 commentText.setText("Set Completed");
-                // set progress if 100
-                dbHelper.setProgress("Champ", 34);
             };
 //            reaction.setImageResource(R.drawable.happy);
         } else {
             // Set text for pass
             grade.setText("Passed!");
             grade.setTextColor(Color.GREEN);
+            dbHelper.setProgress("Master", 17);
 //            reaction.setImageResource(R.drawable.happy);
         }
 

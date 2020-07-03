@@ -21,7 +21,7 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "ssfhjfhmghdsbj.db";
+    public static final String DATABASE_NAME = "ssfhj75bcvhgbvhvjsbj.db";
     private SQLiteDatabase db;
     public static final String ACHIEVEMENTS = "ACHIEVEMENTS";
     public static final String PROGRESS = "PROGRESS";
@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         db.execSQL("CREATE TABLE ACHIEVEMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, PROGRESS INTEGER)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
-                "('Champ', 10)");
+                "('Champ', 0)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
                 "('Conqueror', 20)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
@@ -165,13 +165,24 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public void setProgress(String name, int progress){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int currentProgress;
+        Cursor csr = db.rawQuery("SELECT PROGRESS FROM ACHIEVEMENTS WHERE NAME = "+"'"+name+"'", null);
+        csr.moveToFirst();
+        currentProgress = csr.getInt(csr.getColumnIndex("PROGRESS"));
+        progress = currentProgress + progress;
+        db.execSQL("UPDATE ACHIEVEMENTS SET PROGRESS = " + progress+ " WHERE NAME = " + "'"+name+"'");
+        db.close();
+    }
+
     public void setAnswered(int level, int position)  {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE MCQ SET ANSWERED = 1 WHERE LEVEL = "+level+" AND NUMBER = "+position);
         db.close();
     }
 
-    public void setHighScore(int highScore, int level){
+    /*public void setHighScore(int highScore, int level){
         SQLiteDatabase db = this.getWritableDatabase();
         int score;
         Cursor csr = db.rawQuery("SELECT HIGHSCORE FROM QUIZ WHERE LEVEL = "+level, null);
@@ -181,18 +192,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             db.execSQL("UPDATE QUIZ SET HIGHSCORE = "+highScore);
         }
 
-    }
+    }*/
 
-    public void setProgress(String name, int progress){
-        SQLiteDatabase db = this.getWritableDatabase();
-        int currentProgress;
-        Cursor csr = db.rawQuery("SELECT PROGRESS FROM ACHIEVEMENTS WHERE NAME = "+"'"+name+"'", null);
-        csr.moveToFirst();
-        currentProgress = csr.getInt(csr.getColumnIndex(name));
-        progress = currentProgress + progress;
-        db.execSQL("UPDATE ACHIEVEMENTS SET PROGRESS" + progress);
-        db.close();
-    }
+
 
 //    LEVEL, NUMBER, QUESTION, OPT1, OPT2, OPT3, OPT4, CORRECT, FEEDBACK, ANSWERED
 //    public List<MCQuestion> getAllQuestions() {
