@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -287,5 +288,26 @@ public class MCQActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void AchievementsDialog(String achievement){
+        final Dialog dialog = new Dialog (this);
+        dialog.setContentView(R.layout.dialog_reward);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        TextView text = (TextView) dialog.findViewById(R.id.text);
+        Button closeButton=(Button)dialog.findViewById(R.id.closeButton);
+
+        text.setText("You have unlocked the " +achievement+ " achievement!");
+
+        closeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.dismiss();
+            }
+        });
+
+
     }
 }
