@@ -21,7 +21,7 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "ssfhj75bcvhgbvhvjsbj.db";
+    public static final String DATABASE_NAME = "ssfhj75bghncfghdsbj.db";
     private SQLiteDatabase db;
     public static final String ACHIEVEMENTS = "ACHIEVEMENTS";
     public static final String PROGRESS = "PROGRESS";
@@ -55,13 +55,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
                 "('Champ', 0)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
-                "('Conqueror', 20)");
+                "('Conqueror', 0)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
-                "('Master', 30)");
+                "('Master', 0)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
-                "('Winner', 40)");
+                "('Scholar', 0)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
-                "('Scholar', 50)");
+                "('Weekend Winner', 0)");
     }
 
     @Override

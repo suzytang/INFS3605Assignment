@@ -24,6 +24,7 @@ import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -103,6 +104,19 @@ public class MCQActivity extends AppCompatActivity {
         // Calculate grade and set text
         double percentage = Double.valueOf(total) / Double.valueOf(inputList.size());
         score.setText(total + " OUT OF " + inputList.size());
+
+        // set Progress for Conqueror achievement
+        dbHelper.setProgress("Conqueror", 17);
+
+        // calculate day and set progress for Weekend Winner achievement
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        if (day == Calendar.SATURDAY && dbHelper.checkCompleted(level) == false){
+            dbHelper.setProgress("Weekend Winner", 50);
+        } else if (day == Calendar.SUNDAY && dbHelper.checkCompleted(level) == false){
+            dbHelper.setProgress("Weekend Winner", 50);
+        }
 
         if (percentage < 0.5) {
             // Set text for fail
