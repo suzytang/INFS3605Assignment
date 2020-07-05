@@ -59,9 +59,9 @@ public class Achievements {
     public static ArrayList<Achievements> getAchievements() {
         ArrayList<Achievements> achievements = new ArrayList<>();
         achievements.add(new Achievements("Champ", "Achieve 100% in 3 quizzes", R.drawable.brain, 100));
-        achievements.add(new Achievements("Conqueror", "Complete all quizzes", R.drawable.conquer, 25));
+        achievements.add(new Achievements("Conqueror", "Pass all quizzes", R.drawable.conquer, 25));
         achievements.add(new Achievements("Master", "Achieve 100% in all quizzes", R.drawable.mortarboard, 0));
-        achievements.add(new Achievements("Scholar", "Pass a quiz within 3 minutes", R.drawable.blocks, 50));
+        achievements.add(new Achievements("Scholar", "Pass a quiz within 2 minutes", R.drawable.blocks, 50));
         achievements.add(new Achievements("Weekend Winner", "Complete a quiz on Saturday and Sunday", R.drawable.book, 74));
 
         //sort achievements by descending progress

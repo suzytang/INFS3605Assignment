@@ -1,23 +1,19 @@
 package com.example.infs3605assignment.ui.knowledge;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.infs3605assignment.DatabaseHelper;
 import com.example.infs3605assignment.MainActivity;
@@ -28,7 +24,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
 import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
 
 public class MCQActivity extends AppCompatActivity {
@@ -75,8 +70,11 @@ public class MCQActivity extends AppCompatActivity {
         buttonConfirmNext = findViewById(R.id.button_confirm_next);
         dbHelper = new DatabaseHelper(getApplicationContext());
         questionList = dbHelper.getQuestions(level);
+
+        dbHelper.setTime(System.currentTimeMillis(), level);
         startQuiz();
     }
+
     private void quizFinished() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.fragment_m_c_q_dialog);
@@ -105,22 +103,6 @@ public class MCQActivity extends AppCompatActivity {
         double percentage = Double.valueOf(total) / Double.valueOf(inputList.size());
         score.setText(total + " OUT OF " + inputList.size());
 
-        // set Progress for Conqueror achievement
-        dbHelper.setProgress("Conqueror", 17);
-
-        // calculate day and set progress for Weekend Winner achievement
-        Calendar calendar = Calendar.getInstance();
-        int today = Calendar.SATURDAY;
-
-        // checks that it is a weekend, the quiz hasn't been completed before (100%) and a quiz hasn't been completed on the weekend day
-        if (today == Calendar.SATURDAY && dbHelper.checkCompleted(level) == false && dbHelper.checkDay("Saturday") == false){
-            dbHelper.setProgress("Weekend Winner", 50);
-            dbHelper.setDay("Saturday", level);
-        } else if (today == Calendar.SUNDAY && dbHelper.checkCompleted(level) == false && dbHelper.checkDay("Sunday") == false){
-            dbHelper.setProgress("Weekend Winner", 50);
-            dbHelper.setDay("Sunday", level);
-        }
-
         if (percentage < 0.5) {
             // Set text for fail
             grade.setText("Failed!");
@@ -129,19 +111,33 @@ public class MCQActivity extends AppCompatActivity {
         } else if (percentage == 1) {
             // Set text for 100% in self learn
             grade.setText("Perfect!");
-            dbHelper.setCompleted(level);
-            // set progress if 100
-            dbHelper.setProgress("Champ", 34);
-            dbHelper.setProgress("Master", 17);
-            if (dbHelper.checkCompleted(level)) {
+
+            // set progress for Champ and Master achievements if the quiz has not been completed to 100% before
+            if (dbHelper.checkQuiz("COMPLETED",level)) {
                 commentText.setText("Set Completed");
-            };
+            } else {
+                dbHelper.setProgress("Champ", 34);
+                dbHelper.setProgress("Master", 17);
+                // set progress for Scholar achievement if the quiz has not been completed to 100% before and was finished in less than 2 mins
+                calculateScholar();
+                calculateWeekend();
+                dbHelper.setQuiz("COMPLETED", level);
+                dbHelper.setQuiz("PASS", level);
+            }
 //            reaction.setImageResource(R.drawable.happy);
         } else {
             // Set text for pass
             grade.setText("Passed!");
             grade.setTextColor(Color.GREEN);
-            dbHelper.setProgress("Master", 17);
+            // set Progress for Conqueror achievement if quiz hasn't been passed before
+            if(dbHelper.checkQuiz("PASS", level) == false){
+                dbHelper.setProgress("Conqueror", 17);
+            }
+            // update database to pass
+            dbHelper.setQuiz("PASS", level);
+            // set progress for Scholar achievement if the quiz has not been completed to 100% before and was finished in less than 2 mins
+            calculateScholar();
+            calculateWeekend();
 //            reaction.setImageResource(R.drawable.happy);
         }
 
@@ -175,12 +171,35 @@ public class MCQActivity extends AppCompatActivity {
                 intent.putExtra("Level", level);
                 args.putSerializable("MCQInput",inputList);
                 startActivity(intent);
-
             }
         });
         dialog.show();
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
+    }
+
+    // calculate time for Scholar achievement
+    private void calculateScholar(){
+        long start = dbHelper.getTime(level);
+        long end = System.currentTimeMillis();
+        if (end - start <= 120000 && dbHelper.checkQuiz("COMPLETED", level) == false){
+            dbHelper.setProgress("Scholar", 100);
+        }
+    }
+
+    public void calculateWeekend(){
+        // calculate day and set progress for Weekend Winner achievement
+        Calendar calendar = Calendar.getInstance();
+        int today = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // checks that it is a weekend, the quiz hasn't been completed before (100%) and a quiz hasn't been completed on the weekend day
+        if (today == Calendar.SATURDAY && dbHelper.checkQuiz("COMPLETED", level) == false && dbHelper.checkDay("Saturday") == false){
+            dbHelper.setProgress("Weekend Winner", 50);
+            dbHelper.setDay("Saturday", level);
+        } else if (today == Calendar.SUNDAY && dbHelper.checkQuiz("COMPLETED", level) == false && dbHelper.checkDay("Sunday") == false){
+            dbHelper.setProgress("Weekend Winner", 50);
+            dbHelper.setDay("Sunday", level);
+        }
     }
 
     private void showNextQuestion() {
@@ -314,7 +333,7 @@ public class MCQActivity extends AppCompatActivity {
         });
     }
 
-    private void AchievementsDialog(String achievement){
+    /*private void AchievementsDialog(String achievement){
         final Dialog dialog = new Dialog (this);
         dialog.setContentView(R.layout.dialog_reward);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -331,7 +350,5 @@ public class MCQActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
-
-    }
+    }*/
 }
