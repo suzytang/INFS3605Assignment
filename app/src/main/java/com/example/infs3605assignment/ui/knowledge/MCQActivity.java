@@ -110,12 +110,15 @@ public class MCQActivity extends AppCompatActivity {
 
         // calculate day and set progress for Weekend Winner achievement
         Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        int today = Calendar.SATURDAY;
 
-        if (day == Calendar.SATURDAY && dbHelper.checkCompleted(level) == false){
+        // checks that it is a weekend, the quiz hasn't been completed before (100%) and a quiz hasn't been completed on the weekend day
+        if (today == Calendar.SATURDAY && dbHelper.checkCompleted(level) == false && dbHelper.checkDay("Saturday") == false){
             dbHelper.setProgress("Weekend Winner", 50);
-        } else if (day == Calendar.SUNDAY && dbHelper.checkCompleted(level) == false){
+            dbHelper.setDay("Saturday", level);
+        } else if (today == Calendar.SUNDAY && dbHelper.checkCompleted(level) == false && dbHelper.checkDay("Sunday") == false){
             dbHelper.setProgress("Weekend Winner", 50);
+            dbHelper.setDay("Sunday", level);
         }
 
         if (percentage < 0.5) {
