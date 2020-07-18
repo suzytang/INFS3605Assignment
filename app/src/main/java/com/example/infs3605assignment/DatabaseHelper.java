@@ -21,7 +21,7 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "ssferyghrtdutyfythfvkjgutydgiuhuic9hdsbj.db";
+    public static final String DATABASE_NAME = "ssferyghrtdutyfythfvkjgutydgiuhuiv  c9hdsbj.db";
     private SQLiteDatabase db;
     public static final String ACHIEVEMENTS = "ACHIEVEMENTS";
     public static final String PROGRESS = "PROGRESS";

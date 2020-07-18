@@ -2,38 +2,42 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="15dp"
     android:clickable="true"
     android:focusable="true"
-    android:layout_margin="8dp">
+    android:layout_gravity="center_horizontal"
+    android:layout_centerHorizontal="true"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="250dp"
-            android:layout_marginRight="250dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="220dp"
+            android:layout_marginBottom="20dp"
             android:scaleType="fitEnd"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,31 +47,33 @@
 
         <TextView
             android:id="@+id/description"
-            android:layout_width="200dp"
+            android:layout_width="190dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
             android:text="TextView"
             android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="200dp"
+            android:layout_width="190dp"
             android:layout_height="20dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginRight="33dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <ImageView
-            android:id="@+id/completed"
+            android:id="@+id/completedBox"
             android:layout_width="96dp"
             android:layout_height="93dp"
             android:visibility="invisible"

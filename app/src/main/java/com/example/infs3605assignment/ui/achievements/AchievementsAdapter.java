@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.infs3605assignment.DatabaseHelper;
 import com.example.infs3605assignment.R;
 
-import java.util.ArrayList;
-
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.MyViewHolder> {
 
     Context mContext;
@@ -115,7 +113,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
             this.description = itemView.findViewById(R.id.description);
             this.image = itemView.findViewById(R.id.image);
             this.progressBar = itemView.findViewById(R.id.progressBar);
-            this.completed = itemView.findViewById(R.id.completed);
+            this.completed = itemView.findViewById(R.id.completedBox);
         }
     }
 }
