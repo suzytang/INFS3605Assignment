@@ -97,6 +97,7 @@
         android:elevation="10dp"
         android:text="Completed"
         android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/completedBox"
         app:layout_constraintEnd_toEndOf="@+id/completedBox"
         app:layout_constraintStart_toStartOf="@+id/completedBox" />
@@ -110,7 +111,8 @@
         android:elevation="10dp"
         android:text="0"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="@+id/completedBox"
         app:layout_constraintStart_toStartOf="@+id/completedBox"
@@ -124,6 +126,7 @@
         android:elevation="10dp"
         android:text="Outstanding"
         android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/outstandingBox"
         app:layout_constraintEnd_toEndOf="@+id/outstandingBox"
         app:layout_constraintStart_toStartOf="@+id/outstandingBox" />
@@ -137,10 +140,21 @@
         android:elevation="10dp"
         android:text="0"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="@+id/outstandingBox"
         app:layout_constraintStart_toStartOf="@+id/outstandingBox"
         app:layout_constraintTop_toTopOf="@+id/outstandingBox" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="290dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/highScore" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

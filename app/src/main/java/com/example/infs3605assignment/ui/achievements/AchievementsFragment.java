@@ -21,10 +21,10 @@ import java.util.ArrayList;
 
 public class AchievementsFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private AchievementsAdapter adapter;
-    private SQLiteDatabase db;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    AchievementsAdapter adapter;
+    SQLiteDatabase db;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

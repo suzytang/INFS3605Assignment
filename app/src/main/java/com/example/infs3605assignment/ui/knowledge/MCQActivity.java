@@ -94,10 +94,11 @@ public class MCQActivity extends AppCompatActivity {
         for (int i = 0; i < inputList.size(); i++) {
             if (inputList.get(i).getScore() == 1) {
                 total++;
-                // set high score for quiz in database
-                //dbHelper.setHighScore(total, level);
+
             }
         }
+        // set high score for quiz in database
+        dbHelper.setHighScore(total, level);
 
         // Calculate grade and set text
         double percentage = Double.valueOf(total) / Double.valueOf(inputList.size());
