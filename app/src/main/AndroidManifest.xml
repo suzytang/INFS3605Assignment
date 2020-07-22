@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".ui.knowledge.activity.TrueFalseActivity"></activity>
+        <activity android:name=".ui.knowledge.activity.PhysicalSecurityActivity"></activity>
+        <activity android:name=".ui.knowledge.activity.SocialEngineeringActivity" />
+        <activity android:name=".ui.knowledge.activity.TrueFalseActivity" />
         <activity android:name=".ui.knowledge.activity.PasswordActivity" />
         <activity android:name=".ui.knowledge.MCQResults" />
         <activity android:name=".ui.knowledge.LearnActivity" />

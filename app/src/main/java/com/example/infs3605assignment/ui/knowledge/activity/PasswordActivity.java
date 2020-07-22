@@ -1,6 +1,7 @@
 package com.example.infs3605assignment.ui.knowledge.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +23,11 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 public class PasswordActivity extends AppCompatActivity {
     private EditText password;
     private Button checkButton;
+        private ImageButton retryButton;
     private String feedback;
     private TextView feedbackTitle, feedbackText, moduleTitle;
     private TextInputLayout passwordLayout;
+    private ConstraintLayout feedbackBox, inputBox;
     private boolean retry;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,10 @@ public class PasswordActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordInput);
         passwordLayout = findViewById(R.id.passwordLayout);
         checkButton = findViewById(R.id.checkButton);
+        retryButton = findViewById(R.id.imageButton);
         feedbackTitle = findViewById(R.id.feedbackTitle);
-
+        feedbackBox = findViewById(R.id.feedbackBox);
+        inputBox = findViewById(R.id.inputBox);
         feedbackText = findViewById(R.id.feedbackText);
         moduleTitle = findViewById(R.id.moduleTitle);
         moduleTitle.setText(getCategories().get(level-1).getCategoryName());
@@ -60,34 +66,34 @@ public class PasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Check Button Clicked");
-                if (!retry) {
-                    if (password.length()<8) {
-                        Toast.makeText(getApplicationContext(), "Please enter at least 8 characters first", Toast.LENGTH_SHORT).show();
-                    } else {
-                        feedback();
-                    }
+                if (password.length()<8) {
+                    Toast.makeText(getApplicationContext(), "Please enter at least 8 characters first", Toast.LENGTH_SHORT).show();
                 } else {
-                    retry();
+                    feedback();
                 }
+            }
+        });
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retry();
             }
         });
     }
 
     private void retry() {
-        feedbackText.setVisibility(View.INVISIBLE);
-        feedbackTitle.setVisibility(View.INVISIBLE);
+        feedbackBox.setVisibility(View.INVISIBLE);
+        inputBox.setAlpha((float) 1);
         password.setText("");
         password.setEnabled(true);
-        checkButton.setText("check");
         retry = false;
     }
 
     private void feedback() {
+        feedbackBox.setVisibility(View.VISIBLE);
         feedbackText.setText(feedback);
-        feedbackTitle.setVisibility(View.VISIBLE);
-        feedbackText.setVisibility(View.VISIBLE);
+        inputBox.setAlpha((float) 0.5);
         password.setEnabled(false);
-        checkButton.setText("retry");
         retry = true;
     }
 
@@ -148,7 +154,7 @@ public class PasswordActivity extends AppCompatActivity {
                 case 2: passwordLayout.setHelperText("Password Strength: Weak"); break;
                 case 3: passwordLayout.setHelperText("Password Strength: Medium"); break;
                 case 4: passwordLayout.setHelperText("Password Strength: Strong");
-                    feedback = "Good Job!\n Your password contains special characters, numbers and both uppercase and lowercase letters!";
+                    feedback = "Good Job!\nYour password contains special characters, numbers and both uppercase and lowercase letters!\n";
                     break;
             }
         }
