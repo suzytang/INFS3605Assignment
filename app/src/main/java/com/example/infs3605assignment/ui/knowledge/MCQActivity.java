@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.infs3605assignment.DatabaseHelper;
 import com.example.infs3605assignment.MainActivity;
@@ -28,11 +31,12 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 
 public class MCQActivity extends AppCompatActivity {
     private static final String TAG = "MCQ";
-    private TextView questionText, result, feedback, moduleTitle;
-    private TextView textViewQuestionCount;
+    private ConstraintLayout questionBox, feedbackBox;
+    private TextView questionText, result, feedback, moduleTitle, textViewQuestionCount;
     private RadioGroup rbGroup;
     private RadioButton rb1, rb2, rb3, rb4;
-    private Button buttonConfirmNext;
+    private Button confirmButton;
+    private ImageButton nextButton;
     private List<MCQuestion> questionList;
     private int questionCounter, level, questionTotal;
     private MCQuestion currentQuestion;
@@ -54,9 +58,11 @@ public class MCQActivity extends AppCompatActivity {
         //// Pass arraylist with MCQInput and categories
         //args.putSerializable("arraylist", answers);
         //intent2.putExtra("bundle", args);
+        questionBox = findViewById(R.id.questionBox);
         questionText = findViewById(R.id.questionText);
 //        textViewScore = findViewById(R.id.text_view_score);
         textViewQuestionCount = findViewById(R.id.questionNo);
+        feedbackBox = findViewById(R.id.feedbackBox);
 //        textViewCountDown = findViewById(R.id.text_view_countdown);
         rbGroup = findViewById(R.id.radio_group);
         rb1 = findViewById(R.id.radio_button1);
@@ -67,8 +73,10 @@ public class MCQActivity extends AppCompatActivity {
         feedback = findViewById(R.id.feedback);
         moduleTitle = findViewById(R.id.moduleTitle);
         moduleTitle.setText(getCategories().get(level-1).getCategoryName());
-        buttonConfirmNext = findViewById(R.id.button_confirm_next);
+        confirmButton = findViewById(R.id.confirmButton);
+        nextButton = findViewById(R.id.imageButton);
         dbHelper = new DatabaseHelper(getApplicationContext());
+
         questionList = dbHelper.getQuestions(level);
 
         dbHelper.setTime(System.currentTimeMillis(), level);
@@ -78,6 +86,10 @@ public class MCQActivity extends AppCompatActivity {
     private void quizFinished() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.fragment_m_c_q_dialog);
+        dialog.getWindow().setBackgroundDrawable(null);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHI‌​ND);
+        feedbackBox.setVisibility(View.INVISIBLE);
+        questionBox.setVisibility(View.INVISIBLE);
         // Link to XMl
         TextView grade = dialog.findViewById(R.id.grade);
         TextView score = dialog.findViewById(R.id.score);
@@ -102,17 +114,18 @@ public class MCQActivity extends AppCompatActivity {
 
         // Calculate grade and set text
         double percentage = Double.valueOf(total) / Double.valueOf(inputList.size());
-        score.setText(total + " OUT OF " + inputList.size());
+        score.setText("You scored "+total + " out of " + inputList.size());
 
         if (percentage < 0.5) {
             // Set text for fail
-            grade.setText("Failed!");
+            grade.setText("Failed");
             grade.setTextColor(Color.RED);
-//            reaction.setImageResource(R.drawable.sad);
+            reaction.setImageResource(R.drawable.sad);
+            commentText.setText("Don't give up, revise and you'll pass in no time!");
         } else if (percentage == 1) {
             // Set text for 100% in self learn
             grade.setText("Perfect!");
-
+            reaction.setImageResource(R.drawable.trophy);
             // set progress for Champ and Master achievements if the quiz has not been completed to 100% before
             if (dbHelper.checkQuiz("COMPLETED",level)) {
                 commentText.setText("Set Completed");
@@ -125,11 +138,13 @@ public class MCQActivity extends AppCompatActivity {
                 dbHelper.setQuiz("COMPLETED", level);
                 dbHelper.setQuiz("PASS", level);
             }
-//            reaction.setImageResource(R.drawable.happy);
+            commentText.setText("Good job, you aced the quiz!");
         } else {
             // Set text for pass
-            grade.setText("Passed!");
+            grade.setText("Passed");
             grade.setTextColor(Color.GREEN);
+            commentText.setText("Congratulations!");
+            reaction.setImageResource(R.drawable.happy);
             // set Progress for Conqueror achievement if quiz hasn't been passed before
             if(dbHelper.checkQuiz("PASS", level) == false){
                 dbHelper.setProgress("Conqueror", 17);
@@ -205,8 +220,10 @@ public class MCQActivity extends AppCompatActivity {
 
     private void showNextQuestion() {
         enableButtons(true);
+        feedbackBox.setVisibility(View.INVISIBLE);
         feedback.setVisibility(View.INVISIBLE);
         result.setVisibility(View.INVISIBLE);
+        questionBox.setAlpha((float) 1);
         colourText(Color.BLACK);
         rbGroup.clearCheck();
         if (questionCounter < questionTotal) {
@@ -219,7 +236,7 @@ public class MCQActivity extends AppCompatActivity {
             questionCounter++;
             textViewQuestionCount.setText("Question " + questionCounter + " OUT OF " + questionTotal);
             answered = false;
-            buttonConfirmNext.setText("Confirm");
+            confirmButton.setText("Confirm");
         }
     }
 
@@ -228,6 +245,7 @@ public class MCQActivity extends AppCompatActivity {
         rb2.setEnabled(enable);
         rb3.setEnabled(enable);
         rb4.setEnabled(enable);
+        confirmButton.setEnabled(enable);
     }
 
     private void colourText(int colour) {
@@ -241,17 +259,32 @@ public class MCQActivity extends AppCompatActivity {
         inputList = new ArrayList<>();
         questionCounter = 0;
         last = false;
+        feedbackBox.setVisibility(View.VISIBLE);
+        questionBox.setVisibility(View.VISIBLE);
         result.setVisibility(View.INVISIBLE);
         feedback.setVisibility(View.INVISIBLE);
+        questionBox.setAlpha((float) 1);
         questionTotal = questionList.size();
         Collections.shuffle(questionList);
         showNextQuestion();
-        buttonConfirmNext.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (last) {
                     quizFinished();
+                } else {
+                    showNextQuestion();
                 }
+                if (questionCounter == questionTotal) {
+                    last = true;
+                }
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
                 if (!answered) {
                     if (rb1.isChecked() || rb2.isChecked() || rb3.isChecked() || rb4.isChecked()) {
                         MCQInput input = new MCQInput();
@@ -316,19 +349,13 @@ public class MCQActivity extends AppCompatActivity {
                         feedback.setText(currentQuestion.getFeedback());
                         result.setVisibility(View.VISIBLE);
                         feedback.setVisibility(View.VISIBLE);
+                        feedbackBox.setVisibility(View.VISIBLE);
+                        questionBox.setAlpha((float) 0.5);
                         enableButtons(false);
-
-                        if (questionCounter < questionTotal) {
-                            buttonConfirmNext.setText("Next");
-                        } else {
-                            buttonConfirmNext.setText("Finish");
-                            last = true;
-                        }
                     } else {
                         Toast.makeText(getApplicationContext(), "Please select an answer", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    showNextQuestion();
                 }
             }
         });

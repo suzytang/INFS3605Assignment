@@ -108,18 +108,18 @@ public class LearnActivity extends AppCompatActivity {
 
 
         Log.i(TAG, "Module Content Fragment Opened");
-        backButton = findViewById(R.id.backButton);
+//        backButton = findViewById(R.id.backButton);
         activityButton = findViewById(R.id.activityButton);
         quizButton = findViewById(R.id.quizButton);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "Module Recycler Clicked");
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                getApplicationContext().startActivity(intent);
-            }
-        });
+//
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i(TAG, "Module Recycler Clicked");
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                getApplicationContext().startActivity(intent);
+//            }
+//        });
         activityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +132,7 @@ public class LearnActivity extends AppCompatActivity {
                 Log.i(TAG, "Quiz Module Clicked");
                 Intent intent = new Intent(getApplicationContext(), MCQActivity.class);
                 intent.putExtra("Level",level);
-                getApplicationContext().startActivity(intent);
+                startActivity(intent);
             }
         });
     }

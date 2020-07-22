@@ -51,6 +51,8 @@ public class ModuleCategories {
         categories.add(new ModuleCategories(2, "Social Engineering", R.drawable.socialengineering));
         categories.add(new ModuleCategories(3, "Password Security",R.drawable.password));
         categories.add(new ModuleCategories(4, "Untrusted Sites",R.drawable.untrustedsites));
+        categories.add(new ModuleCategories(5, "Mobile Practices",R.drawable.mobilepractices));
+        categories.add(new ModuleCategories(6, "Physical Security",R.drawable.physicalsecurity));
         return categories;
     }
 }

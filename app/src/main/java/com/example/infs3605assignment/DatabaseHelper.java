@@ -21,7 +21,7 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "ssferygftyjdtdrgsjgfvjndhbcvjnvutydgidsbj.db";
+    public static final String DATABASE_NAME = "KFDAADJ42asdas342KFB.db";
     private SQLiteDatabase db;
     public static final String ACHIEVEMENTS = "ACHIEVEMENTS";
     public static final String QUIZ = "QUIZ";
@@ -123,6 +123,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         addQuestion(new MCQuestion(4, 8, "Answer D", "A","B","C","D","",4));
         addQuestion(new MCQuestion(4, 9, "Answer A", "A","B","C","D","",1));
         addQuestion(new MCQuestion(4, 10, "Answer B", "A","B","C","D","",2));
+        addQuestion(new MCQuestion(5, 1, "This is a test question. The answer is A.", "A","B","C","D","This is the feedback text which provides an explanation.",1));
+        addQuestion(new MCQuestion(5, 2, "This is a test question. The answer is B.", "A","B","C","D","This is the feedback text which provides an explanation.",2));
+        addQuestion(new MCQuestion(5, 3, "This is a test question. The answer is C.", "A","B","C","D","This is the feedback text which provides an explanation.",3));
     }
     private void addQuestion(MCQuestion question) {
         ContentValues cv = new ContentValues();

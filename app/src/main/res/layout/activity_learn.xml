@@ -10,13 +10,26 @@
     <ImageView
         android:id="@+id/moduleHeader"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/header1"
+        android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/transparentBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:alpha="0.5"
+        app:layout_constraintBottom_toBottomOf="@+id/moduleHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/moduleTitle"
+        app:srcCompat="@drawable/rectangle" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -25,9 +38,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_rectangle2"
-        app:layout_constraintBottom_toTopOf="@+id/activityButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -215,16 +228,39 @@
             <TextView
                 android:id="@+id/content7"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="22dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/quizButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/heading7" />
+
+            <Button
+                android:id="@+id/quizButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="quiz"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/activityButton"
+                app:layout_constraintTop_toBottomOf="@+id/content7" />
+
+            <Button
+                android:id="@+id/activityButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="activity"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/quizButton"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -233,42 +269,13 @@
         android:id="@+id/moduleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/rounded_rectangle"
         android:text="Module Title"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/moduleHeader" />
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="back"
-        app:layout_constraintBottom_toBottomOf="@+id/activityButton"
-        app:layout_constraintEnd_toStartOf="@+id/activityButton" />
-
-    <Button
-        android:id="@+id/quizButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="quiz"
-        app:layout_constraintBottom_toBottomOf="@+id/activityButton"
-        app:layout_constraintStart_toEndOf="@+id/activityButton" />
-
-    <Button
-        android:id="@+id/activityButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="activity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,8 +44,10 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.MyViewHolder> {
         holder.feedbackText.setText(inputList.get(position).getFeedback());
         if (inputList.get(position).getScore() == 0) {
             holder.userInput.setTextColor(Color.RED);
+            holder.correct.setImageResource(R.drawable.correct);
         } else {
             holder.userInput.setTextColor(Color.GREEN);
+            holder.correct.setImageResource(R.drawable.incorrect);
         }
     }
 
@@ -57,9 +60,10 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.MyViewHolder> {
     // Create ViewHolder for learn_levels
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView questionNumber, questionText, userInput, correctAnswer, feedbackText;
-
+        ImageView correct;
         public MyViewHolder(View itemView) {
             super(itemView);
+            this.correct = itemView.findViewById(R.id.correct);
             this.questionNumber = itemView.findViewById(R.id.questionNumber);
             this.questionText = itemView.findViewById(R.id.questionText);
             this.userInput = itemView.findViewById(R.id.userInput);
