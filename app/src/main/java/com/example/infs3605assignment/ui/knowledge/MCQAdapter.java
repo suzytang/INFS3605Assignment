@@ -68,7 +68,7 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.MyViewHolder> {
             this.questionText = itemView.findViewById(R.id.questionText);
             this.userInput = itemView.findViewById(R.id.userInput);
             this.correctAnswer = itemView.findViewById(R.id.correctAnswer);
-            this.feedbackText = itemView.findViewById(R.id.feedbackText);
+            this.feedbackText = itemView.findViewById(R.id.feedbackTitle);
         }
     }
 }
