@@ -87,7 +87,7 @@ public class MCQActivity extends AppCompatActivity {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.fragment_m_c_q_dialog);
         dialog.getWindow().setBackgroundDrawable(null);
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHI‌​ND);
+        //dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHI‌​ND);
         feedbackBox.setVisibility(View.INVISIBLE);
         questionBox.setVisibility(View.INVISIBLE);
         // Link to XMl

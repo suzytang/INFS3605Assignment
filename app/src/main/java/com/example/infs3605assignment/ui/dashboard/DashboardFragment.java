@@ -1,11 +1,13 @@
 package com.example.infs3605assignment.ui.dashboard;
 
+import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.example.infs3605assignment.DatabaseHelper;
 import com.example.infs3605assignment.R;
 import com.example.infs3605assignment.ui.achievements.AchievementsAdapter;
 import com.example.infs3605assignment.ui.knowledge.ModuleCategories;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -32,6 +35,7 @@ public class DashboardFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     DashboardAdapter adapter;
+    TextView name;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +44,10 @@ public class DashboardFragment extends Fragment {
         container.removeAllViews();
 
         dbHelper = new DatabaseHelper(getContext());
+
+        if(dbHelper.checkUsername() == false){
+            openUsernameDialog();
+        }
 
         final DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         db = databaseHelper.getWritableDatabase();
@@ -62,8 +70,11 @@ public class DashboardFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         adapter.swapCursor(getAllItems());
 
+        name = root.findViewById(R.id.name);
         TextView completed = root.findViewById(R.id.completed);
         TextView outstanding = root.findViewById(R.id.outstanding);
+
+        name.setText(dbHelper.getUsername());
 
         int level = 1;
         int completedValue = 0;
@@ -86,6 +97,29 @@ public class DashboardFragment extends Fragment {
 
         return root;
     }
+
+     public void openUsernameDialog(){
+
+        final Dialog dialog = new Dialog (this.getContext());
+        dialog.setContentView(R.layout.dialog_username);
+        dialog.show();
+
+        final TextInputEditText usernameInput = dialog.findViewById(R.id.usernameInput);
+        Button submitButton = dialog.findViewById(R.id.submitButton);
+
+        submitButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String username = usernameInput.getText().toString();
+                dbHelper.setUsername(username);
+                name.setText(dbHelper.getUsername());
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
 
     public Cursor getAllItems() {
         return db.query(

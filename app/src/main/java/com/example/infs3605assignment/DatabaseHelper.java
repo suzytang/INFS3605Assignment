@@ -21,12 +21,13 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "KFDAADJ42asdas342KFB.db";
+    public static final String DATABASE_NAME = "KFDAADJhgjhfgfcfkmhdsgdrfrghfxchs342KFB.db";
     private SQLiteDatabase db;
     public static final String ACHIEVEMENTS = "ACHIEVEMENTS";
     public static final String QUIZ = "QUIZ";
     public static final String PROGRESS = "PROGRESS";
     public static final String NAME = "NAME";
+    public static final String USERNAME = "USERNAME";
     public static final String HIGHSCORE = "HIGHSCORE";
 
     public DatabaseHelper(Context context) {
@@ -52,6 +53,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("CREATE TABLE MCQ (ID INTEGER PRIMARY KEY AUTOINCREMENT,LEVEL INTEGER, NUMBER INTEGER, QUESTION TEXT, OPT1 TEXT," +
                 "OPT2 TEXT, OPT3 TEXT, OPT4 TEXT, CORRECT INTEGER, FEEDBACK TEXT, ANSWERED INTEGER)");
         fillQuestionsTable();
+
+        db.execSQL("CREATE TABLE USER (ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT)");
+        db.execSQL("INSERT INTO USER ("+USERNAME+") VALUES " +
+                "('username')");
 
         db.execSQL("CREATE TABLE ACHIEVEMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, PROGRESS INTEGER)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
@@ -158,6 +163,25 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void setUsername(String username)  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE USER SET USERNAME = "+"'"+username+"'");
+        db.close();
+    }
+
+    public boolean checkUsername()  {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String username;
+        Cursor csr = db.rawQuery("SELECT USERNAME FROM USER", null);
+        csr.moveToFirst();
+        username = csr.getString(csr.getColumnIndex("USERNAME"));
+        if (username.equals("username")) {
+            return false;
+        } else {
+            return  true;
+        }
+    }
+
     public boolean checkQuiz(String column, int level)  {
         SQLiteDatabase db = this.getWritableDatabase();
         int completed;
@@ -221,6 +245,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         csr.moveToFirst();
         time = csr.getLong(csr.getColumnIndex("TIME"));
         return time;
+    }
+
+    public String getUsername(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String username;
+        Cursor csr = db.rawQuery("SELECT USERNAME FROM USER", null);
+        csr.moveToFirst();
+        username = csr.getString(csr.getColumnIndex("USERNAME"));
+        return username;
     }
 
     public void setTime(long time, int level) {
