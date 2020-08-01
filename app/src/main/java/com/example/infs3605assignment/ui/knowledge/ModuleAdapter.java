@@ -2,6 +2,7 @@ package com.example.infs3605assignment.ui.knowledge;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,7 +70,10 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
                     case 3: Intent intent = new Intent(context, PasswordActivity.class);
                         intent.putExtra("Level",position+1);
                         context.startActivity(intent);; break;
-//                    case 1: break;
+                    case 1:
+                        context.startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("https://haveibeenpwned.com/")));
+                        break;
 //                    case 2: break;
                     case 4:
                     case 5: Intent intent2 = new Intent(context, TrueFalseActivity.class);
