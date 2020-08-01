@@ -21,13 +21,14 @@ import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCa
 // http://programmingknowledgeblog.blogspot.com/2015/05/android-sqlite-database-tutorial-5.html
 
 public class DatabaseHelper extends SQLiteOpenHelper{
-    public static final String DATABASE_NAME = "KFDAADJhgjhfgfcfkmhdsgdrfrghfxchs342KFB.db";
+    public static final String DATABASE_NAME = "KFDAADJhgjaedfafvdsjgfhgcytcrgjghdfhfxchs342KFB.db";
     private SQLiteDatabase db;
     public static final String ACHIEVEMENTS = "ACHIEVEMENTS";
     public static final String QUIZ = "QUIZ";
     public static final String PROGRESS = "PROGRESS";
     public static final String NAME = "NAME";
     public static final String USERNAME = "USERNAME";
+    public static final String FEEDBACK = "FEEDBACK";
     public static final String HIGHSCORE = "HIGHSCORE";
 
     public DatabaseHelper(Context context) {
@@ -54,9 +55,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 "OPT2 TEXT, OPT3 TEXT, OPT4 TEXT, CORRECT INTEGER, FEEDBACK TEXT, ANSWERED INTEGER)");
         fillQuestionsTable();
 
-        db.execSQL("CREATE TABLE USER (ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT)");
-        db.execSQL("INSERT INTO USER ("+USERNAME+") VALUES " +
-                "('username')");
+        db.execSQL("CREATE TABLE USER (ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT, FEEDBACK INTEGER)");
+        db.execSQL("INSERT INTO USER ("+USERNAME+","+FEEDBACK+") VALUES " +
+                "('username',0)");
 
         db.execSQL("CREATE TABLE ACHIEVEMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, PROGRESS INTEGER)");
         db.execSQL("INSERT INTO "+ACHIEVEMENTS+" ("+NAME+", "+PROGRESS+") VALUES " +
@@ -238,6 +239,33 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return dayBoolean;
     }
 
+    public boolean checkFeedback(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean feedback = false;
+        for (int level = 1; level < 5; level++){
+            Cursor csr = db.rawQuery("SELECT HIGHSCORE FROM QUIZ WHERE LEVEL = " + level,null);
+            csr.moveToFirst();
+            int highscore = csr.getInt(csr.getColumnIndex("HIGHSCORE"));
+            csr = db.rawQuery("SELECT FEEDBACK FROM USER",null);
+            csr.moveToFirst();
+            int complete = csr.getInt(csr.getColumnIndex("FEEDBACK"));
+            int count = 0;
+            if(highscore >= 5 && complete == 0){
+                count ++;
+                if(count == 1){
+                    feedback = true;
+                    break;
+                }
+            }
+        }
+        return feedback;
+    }
+
+    public void setFeedback(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE USER SET FEEDBACK = 1");
+        db.close();
+    }
     public long getTime(int level){
         SQLiteDatabase db = this.getWritableDatabase();
         long time;

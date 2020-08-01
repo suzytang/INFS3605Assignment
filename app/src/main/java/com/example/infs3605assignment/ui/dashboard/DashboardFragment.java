@@ -1,14 +1,17 @@
 package com.example.infs3605assignment.ui.dashboard;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +50,10 @@ public class DashboardFragment extends Fragment {
 
         if(dbHelper.checkUsername() == false){
             openUsernameDialog();
+        }
+
+        if(dbHelper.checkFeedback()){
+            openFeedbackDialog();
         }
 
         final DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
@@ -99,7 +106,6 @@ public class DashboardFragment extends Fragment {
     }
 
      public void openUsernameDialog(){
-
         final Dialog dialog = new Dialog (this.getContext());
         dialog.setContentView(R.layout.dialog_username);
         dialog.show();
@@ -116,8 +122,51 @@ public class DashboardFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+    }
 
+    public void openFeedbackDialog(){
+        final Dialog dialog = new Dialog (this.getContext());
+        dialog.setContentView(R.layout.dialog_feedback);
+        dialog.show();
 
+        Button submitButton = dialog.findViewById(R.id.submitButton);
+        Button cancelButton = dialog.findViewById(R.id.cancelButton);
+        /*final RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
+        final RatingBar ratingBar2 = dialog.findViewById(R.id.ratingBar2);
+        final RatingBar ratingBar3 = dialog.findViewById(R.id.ratingBar3);
+        final TextInputEditText feedbackText = dialog.findViewById(R.id.feedbackText);*/
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper.setFeedback();
+                dialog.dismiss();
+            }
+        });
+
+        submitButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dbHelper.setFeedback();
+
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://forms.gle/5fZWsxWXRSAGUU237")));
+
+                /*int modules = ratingBar.getNumStars();
+                int quizzes = ratingBar2.getNumStars();
+                int activities = ratingBar3.getNumStars();
+                String text = feedbackText.getText().toString();
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","cybermind.info@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Modules: " +modules+ "\nQuizzes: " +quizzes+ "\nActivities: "+activities+
+                        "\nAdditional comments: "+ text);
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));*/
+
+                dialog.dismiss();
+            }
+        });
     }
 
 
