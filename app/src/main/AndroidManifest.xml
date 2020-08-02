@@ -9,23 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
-        <activity android:name=".ui.knowledge.activity.PhysicalSecurityActivity"></activity>
+        <activity android:name=".ui.knowledge.activity.IntroductionActivity"></activity>
+        <activity android:name=".ui.knowledge.activity.PhysicalSecurityActivity" />
         <activity android:name=".ui.knowledge.activity.SocialEngineeringActivity" />
         <activity android:name=".ui.knowledge.activity.TrueFalseActivity" />
         <activity android:name=".ui.knowledge.activity.PasswordActivity" />
         <activity android:name=".ui.knowledge.MCQResults" />
         <activity android:name=".ui.knowledge.LearnActivity" />
         <activity android:name=".ui.knowledge.MCQActivity" />
-        <activity
-            android:name=".SplashActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

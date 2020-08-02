@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
+import com.example.infs3605assignment.ui.knowledge.activity.IntroductionActivity;
 import com.example.infs3605assignment.ui.knowledge.activity.PasswordActivity;
+import com.example.infs3605assignment.ui.knowledge.activity.SocialEngineeringActivity;
 import com.example.infs3605assignment.ui.knowledge.activity.TrueFalseActivity;
 
 import java.util.ArrayList;
@@ -67,14 +69,15 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
                 Bundle args = new Bundle();
                 args.putInt("Level", position+1);
                 switch (position + 1) {
+                    case 1:
+                    case 2:
+                        Intent intent3 = new Intent(context, IntroductionActivity.class);
+                        intent3.putExtra("Level",position+1);
+                        context.startActivity(intent3);
+                        break;
                     case 3: Intent intent = new Intent(context, PasswordActivity.class);
                         intent.putExtra("Level",position+1);
-                        context.startActivity(intent);; break;
-                    case 1:
-                        context.startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://haveibeenpwned.com/")));
-                        break;
-//                    case 2: break;
+                        context.startActivity(intent); break;
                     case 4:
                     case 5: Intent intent2 = new Intent(context, TrueFalseActivity.class);
                         intent2.putExtra("Level",position+1);

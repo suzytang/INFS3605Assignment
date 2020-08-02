@@ -13,22 +13,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.infs3605assignment.DatabaseHelper;
 import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
-import com.example.infs3605assignment.ui.knowledge.MCQInput;
-import com.example.infs3605assignment.ui.knowledge.MCQResults;
-import com.example.infs3605assignment.ui.knowledge.MCQuestion;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.List;
 
 import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
 import static com.example.infs3605assignment.ui.knowledge.activity.TrueFalse.getQuestions;
@@ -67,8 +58,8 @@ public class TrueFalseActivity extends AppCompatActivity {
         textViewQuestionCount = findViewById(R.id.questionNo);
         feedbackBox = findViewById(R.id.feedbackBox);
 //        textViewCountDown = findViewById(R.id.text_view_countdown);
-        result = findViewById(R.id.result);
-        feedback = findViewById(R.id.feedback);
+        result = findViewById(R.id.feedbackTitle);
+        feedback = findViewById(R.id.feedbackText);
         moduleTitle = findViewById(R.id.moduleTitle);
         moduleTitle.setText(getCategories().get(level - 1).getCategoryName());
         if (level == 4) {

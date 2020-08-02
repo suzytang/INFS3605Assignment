@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -69,8 +68,8 @@ public class MCQActivity extends AppCompatActivity {
         rb2 = findViewById(R.id.radio_button2);
         rb3 = findViewById(R.id.radio_button3);
         rb4 = findViewById(R.id.radio_button4);
-        result = findViewById(R.id.result);
-        feedback = findViewById(R.id.feedback);
+        result = findViewById(R.id.feedbackTitle);
+        feedback = findViewById(R.id.feedbackText);
         moduleTitle = findViewById(R.id.moduleTitle);
         moduleTitle.setText(getCategories().get(level-1).getCategoryName());
         confirmButton = findViewById(R.id.confirmButton);

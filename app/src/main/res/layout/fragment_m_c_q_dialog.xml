@@ -58,7 +58,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="modules"
+        android:text="home"
         app:layout_constraintBottom_toBottomOf="@+id/retryButton"
         app:layout_constraintEnd_toStartOf="@+id/resultButton"
         app:layout_constraintStart_toEndOf="@+id/retryButton"
