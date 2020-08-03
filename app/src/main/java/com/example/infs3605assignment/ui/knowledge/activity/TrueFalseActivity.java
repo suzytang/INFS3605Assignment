@@ -225,7 +225,6 @@ public class TrueFalseActivity extends AppCompatActivity {
         } else {
             result.setText("Incorrect!");
         }
-        feedback.setText(currentQuestion.getFeedback());
     }
 
     private void showNextQuestion() {
@@ -234,6 +233,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         questionBox.setAlpha((float) 1);
         if (questionCounter < questionTotal) {
             currentQuestion = questionList.get(questionCounter);
+            feedback.setText(currentQuestion.getFeedback());
             screenshot.setImageResource(currentQuestion.getImage());
             questionCounter++;
             textViewQuestionCount.setText("Question " + questionCounter + " OUT OF " + questionTotal);
