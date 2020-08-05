@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
+import com.example.infs3605assignment.ui.knowledge.activity.IntroductionActivity;
+import com.example.infs3605assignment.ui.knowledge.activity.PasswordActivity;
+import com.example.infs3605assignment.ui.knowledge.activity.TrueFalseActivity;
 
 import static android.content.ContentValues.TAG;
 import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
@@ -123,6 +126,24 @@ public class LearnActivity extends AppCompatActivity {
         activityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle args = new Bundle();
+                args.putInt("Level", level);
+                switch (level) {
+                    case 1:
+                    case 2:
+                        Intent intent3 = new Intent(getApplicationContext(), IntroductionActivity.class);
+                        intent3.putExtra("Level",level);
+                        startActivity(intent3);
+                        break;
+                    case 3: Intent intent = new Intent(getApplicationContext(), PasswordActivity.class);
+                        intent.putExtra("Level",level);
+                        startActivity(intent); break;
+                    case 4:
+                    case 5: Intent intent2 = new Intent(getApplicationContext(), TrueFalseActivity.class);
+                        intent2.putExtra("Level",level);
+                        startActivity(intent2);
+                        break;
+                }
             }
         });
 

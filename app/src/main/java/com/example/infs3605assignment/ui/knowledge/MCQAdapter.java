@@ -44,10 +44,10 @@ public class MCQAdapter extends RecyclerView.Adapter<MCQAdapter.MyViewHolder> {
         holder.feedbackText.setText(inputList.get(position).getFeedback());
         if (inputList.get(position).getScore() == 0) {
             holder.userInput.setTextColor(Color.RED);
-            holder.correct.setImageResource(R.drawable.correct);
+            holder.correct.setImageResource(R.drawable.incorrect);
         } else {
             holder.userInput.setTextColor(Color.GREEN);
-            holder.correct.setImageResource(R.drawable.incorrect);
+            holder.correct.setImageResource(R.drawable.correct);
         }
     }
 
