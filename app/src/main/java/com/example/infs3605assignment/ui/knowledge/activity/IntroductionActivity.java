@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.infs3605assignment.MainActivity;
 import com.example.infs3605assignment.R;
 
 import static com.example.infs3605assignment.ui.knowledge.ModuleCategories.getCategories;
@@ -36,6 +37,10 @@ public class IntroductionActivity extends AppCompatActivity {
             activityExplanation.setText("\nThis activity involves looking at an example of a phishing email.\n\nLook at the email and tap the parts which indicates that it is a phishing email.");
             startButton.setText("Start");
         }
+        if (level == 6) {
+            activityExplanation.setText("\nActivity coming soon!");
+            startButton.setText("Home");
+        }
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +52,10 @@ public class IntroductionActivity extends AppCompatActivity {
                     Intent intent3 = new Intent(getApplicationContext(), SocialEngineeringActivity.class);
                     intent3.putExtra("Level",level);
                     startActivity(intent3);
+                }
+                if (level == 6) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });

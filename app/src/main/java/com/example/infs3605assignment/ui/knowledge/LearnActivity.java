@@ -143,6 +143,11 @@ public class LearnActivity extends AppCompatActivity {
                         intent2.putExtra("Level",level);
                         startActivity(intent2);
                         break;
+                    case 6:
+                        Intent intent4 = new Intent(getApplicationContext(), IntroductionActivity.class);
+                        intent4.putExtra("Level",level);
+                        startActivity(intent4);
+                        break;
                 }
             }
         });

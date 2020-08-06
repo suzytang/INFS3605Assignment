@@ -83,6 +83,11 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.MyViewHold
                         intent2.putExtra("Level",position+1);
                         context.startActivity(intent2);
                         break;
+                    case 6:
+                        Intent intent4 = new Intent(context, IntroductionActivity.class);
+                        intent4.putExtra("Level",position+1);
+                        context.startActivity(intent4);
+                        break;
                 }
             }
         });
