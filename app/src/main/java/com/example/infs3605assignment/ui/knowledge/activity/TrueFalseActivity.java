@@ -229,7 +229,7 @@ public class TrueFalseActivity extends AppCompatActivity {
 
     private void showNextQuestion() {
         enableButtons(true);
-        feedbackBox.setVisibility(View.INVISIBLE);
+        feedbackBox.setVisibility(View.GONE);
         questionBox.setAlpha((float) 1);
         if (questionCounter < questionTotal) {
             currentQuestion = questionList.get(questionCounter);

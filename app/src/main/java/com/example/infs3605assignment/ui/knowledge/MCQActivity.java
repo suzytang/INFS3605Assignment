@@ -219,7 +219,7 @@ public class MCQActivity extends AppCompatActivity {
 
     private void showNextQuestion() {
         enableButtons(true);
-        feedbackBox.setVisibility(View.INVISIBLE);
+        feedbackBox.setVisibility(View.GONE);
         feedback.setVisibility(View.INVISIBLE);
         result.setVisibility(View.INVISIBLE);
         questionBox.setAlpha((float) 1);
